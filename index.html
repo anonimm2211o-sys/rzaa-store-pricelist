@@ -216,6 +216,27 @@
     white-space: nowrap;
   }
 
+  .p-right{ display:flex; align-items:center; gap: 12px; flex-shrink:0; }
+
+  .buy-btn{
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 11.5px;
+    color: var(--void);
+    background: linear-gradient(120deg, var(--term-green), #8effc8);
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    transition: transform 0.15s ease;
+    position: relative;
+    z-index: 2;
+  }
+  .buy-btn:hover{ transform: translateY(-2px); }
+  .buy-btn:active{ transform: translateY(0) scale(0.95); }
+
   /* footer / CTA */
   .cta{
     margin-top: 40px;
@@ -275,9 +296,267 @@
     .p-name{ font-size: 0.9rem; }
     .p-price{ font-size: 0.92rem; }
   }
+
+  /* ===== Loading Screen ===== */
+  #loadingScreen{
+    position: fixed; inset: 0;
+    background: var(--void);
+    z-index: 999;
+    display:flex; align-items:center; justify-content:center;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+  #loadingScreen.hide{
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  #loadingScreen::before{
+    content:"";
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(155,92,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(155,92,255,0.05) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 75%);
+  }
+  .loader-box{
+    position: relative;
+    width: 100%; max-width: 320px;
+    padding: 0 24px;
+    text-align: center;
+  }
+  .loader-logo{
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: 0.06em;
+    margin-bottom: 22px;
+    background: linear-gradient(120deg, #fff 20%, var(--violet) 60%, var(--magenta) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: logoPulse 1.6s ease-in-out infinite;
+  }
+  @keyframes logoPulse{
+    0%,100%{ filter: drop-shadow(0 0 0px rgba(155,92,255,0)); }
+    50%{ filter: drop-shadow(0 0 14px rgba(155,92,255,0.55)); }
+  }
+
+  .loader-track{
+    width: 100%;
+    height: 5px;
+    background: rgba(155,92,255,0.12);
+    border: 1px solid var(--panel-line);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .loader-fill{
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--violet), var(--magenta), var(--term-green));
+    background-size: 200% 100%;
+    border-radius: 999px;
+    animation: shimmer 1.2s linear infinite;
+    transition: width 0.25s ease;
+  }
+  @keyframes shimmer{
+    0%{ background-position: 0% 0; }
+    100%{ background-position: 200% 0; }
+  }
+
+  .loader-status{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--term-green);
+    letter-spacing: 0.03em;
+    min-height: 16px;
+  }
+  .loader-status .cursor{
+    display:inline-block;
+    animation: blink 0.9s step-end infinite;
+  }
+
+  .loader-percent{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  /* fade-in konten utama setelah loading selesai */
+  .wrap{
+    animation: contentIn 0.6s ease both;
+  }
+  @keyframes contentIn{
+    from{ opacity: 0; transform: translateY(14px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+
+  body.is-loading .wrap{ animation-play-state: paused; opacity: 0; }
+
+  /* join saluran link */
+  .join-channel{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    margin-top: 16px;
+    padding: 12px 16px;
+    border: 1px solid var(--panel-line);
+    border-radius: 10px;
+    background: rgba(93,255,168,0.05);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--term-green);
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+  .join-channel:hover{ transform: translateY(-2px); border-color: var(--term-green); }
+  .join-channel .jc-icon{ font-size: 15px; }
+
+  /* ===== Modal overlay (shared: promo popup + buy form) ===== */
+  .modal-overlay{
+    position: fixed; inset: 0;
+    background: rgba(4,3,8,0.72);
+    backdrop-filter: blur(6px);
+    display:flex; align-items:center; justify-content:center;
+    z-index: 100;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  .modal-overlay.show{ opacity: 1; pointer-events: auto; }
+
+  .modal-box{
+    width: 100%; max-width: 380px;
+    background: linear-gradient(180deg, rgba(24,18,38,0.97), rgba(14,10,22,0.98));
+    border: 1px solid var(--panel-line);
+    border-radius: 16px;
+    padding: 26px 22px 22px;
+    position: relative;
+    box-shadow: 0 30px 70px -20px rgba(155,92,255,0.5);
+    transform: translateY(16px) scale(0.97);
+    transition: transform 0.25s ease;
+  }
+  .modal-overlay.show .modal-box{ transform: translateY(0) scale(1); }
+
+  .modal-close{
+    position: absolute; top: 14px; right: 14px;
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: rgba(155,92,255,0.12);
+    border: 1px solid var(--panel-line);
+    color: var(--text-dim);
+    display:flex; align-items:center; justify-content:center;
+    cursor: pointer;
+    font-size: 15px;
+    line-height: 1;
+  }
+  .modal-close:hover{ color: var(--text-main); border-color: var(--magenta); }
+
+  /* promo popup specifics */
+  .promo-badge{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    color: var(--magenta);
+    background: rgba(255,79,216,0.1);
+    border: 1px solid rgba(255,79,216,0.35);
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .modal-box h2{
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    background: linear-gradient(120deg, #fff 20%, var(--violet) 70%, var(--magenta) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .modal-box p.desc{
+    color: var(--text-dim);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-bottom: 18px;
+  }
+  .modal-btn{
+    width: 100%;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--void);
+    background: linear-gradient(120deg, var(--term-green), #8effc8);
+    border: none;
+    padding: 13px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    box-shadow: 0 12px 30px -10px rgba(93,255,168,0.5);
+    transition: transform 0.15s ease;
+    text-decoration: none;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+  }
+  .modal-btn:hover{ transform: translateY(-2px); }
+  .modal-btn:active{ transform: translateY(0) scale(0.97); }
+
+  .modal-btn.ghost{
+    background: rgba(155,92,255,0.1);
+    color: var(--text-dim);
+    box-shadow: none;
+    margin-top: 8px;
+    border: 1px solid var(--panel-line);
+  }
+
+  /* buy form specifics */
+  .form-group{ margin-bottom: 14px; }
+  .form-group label{
+    display:block;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--violet);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select{
+    width: 100%;
+    background: rgba(8,6,13,0.6);
+    border: 1px solid var(--panel-line);
+    border-radius: 9px;
+    padding: 11px 13px;
+    color: var(--text-main);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.92rem;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus{
+    border-color: var(--violet);
+  }
+  .form-group textarea{ resize: vertical; min-height: 60px; }
+  .form-group select{ appearance:none; cursor:pointer; }
+  .form-hint{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--text-dim);
+    margin-top: 6px;
+    opacity: 0.7;
+  }
 </style>
 </head>
-<body>
+<body class="is-loading">
+
+<div id="loadingScreen">
+  <div class="loader-box">
+    <div class="loader-logo">RZAA STORE</div>
+    <div class="loader-track"><div class="loader-fill" id="loaderFill"></div></div>
+    <div class="loader-status" id="loaderStatus">initializing<span class="cursor">_</span></div>
+    <div class="loader-percent" id="loaderPercent">0%</div>
+  </div>
+</div>
 
 <div class="glow-orb"></div>
 
@@ -308,7 +587,10 @@
         <div class="p-icon">WA</div>
         <div><div class="p-name">WhatsApp</div><div class="p-sub">verifikasi nomor</div></div>
       </div>
-      <div class="p-price">Rp5.000</div>
+      <div class="p-right">
+        <div class="p-price">Rp5.000</div>
+        <button class="buy-btn" data-name="WhatsApp" data-price="Rp5.000">Buy</button>
+      </div>
     </div>
 
     <div class="price-item" data-name="Shopee" data-price="5.000">
@@ -316,7 +598,10 @@
         <div class="p-icon">SP</div>
         <div><div class="p-name">Shopee</div><div class="p-sub">verifikasi nomor</div></div>
       </div>
-      <div class="p-price">Rp5.000</div>
+      <div class="p-right">
+        <div class="p-price">Rp5.000</div>
+        <button class="buy-btn" data-name="Shopee" data-price="Rp5.000">Buy</button>
+      </div>
     </div>
 
     <div class="price-item" data-name="Tokopedia" data-price="4.000">
@@ -324,7 +609,10 @@
         <div class="p-icon">TP</div>
         <div><div class="p-name">Tokopedia</div><div class="p-sub">verifikasi nomor</div></div>
       </div>
-      <div class="p-price">Rp4.000</div>
+      <div class="p-right">
+        <div class="p-price">Rp4.000</div>
+        <button class="buy-btn" data-name="Tokopedia" data-price="Rp4.000">Buy</button>
+      </div>
     </div>
 
     <div class="price-item" data-name="Lazada" data-price="4.000">
@@ -332,7 +620,10 @@
         <div class="p-icon">LZ</div>
         <div><div class="p-name">Lazada</div><div class="p-sub">verifikasi nomor</div></div>
       </div>
-      <div class="p-price">Rp4.000</div>
+      <div class="p-right">
+        <div class="p-price">Rp4.000</div>
+        <button class="buy-btn" data-name="Lazada" data-price="Rp4.000">Buy</button>
+      </div>
     </div>
 
     <div class="price-item" data-name="TikTok" data-price="2.000">
@@ -340,7 +631,10 @@
         <div class="p-icon">TT</div>
         <div><div class="p-name">TikTok</div><div class="p-sub">verifikasi nomor</div></div>
       </div>
-      <div class="p-price">Rp2.000</div>
+      <div class="p-right">
+        <div class="p-price">Rp2.000</div>
+        <button class="buy-btn" data-name="TikTok" data-price="Rp2.000">Buy</button>
+      </div>
     </div>
 
     <div class="price-item" data-name="Grab" data-price="2.000">
@@ -348,7 +642,10 @@
         <div class="p-icon">GR</div>
         <div><div class="p-name">Grab</div><div class="p-sub">verifikasi nomor</div></div>
       </div>
-      <div class="p-price">Rp2.000</div>
+      <div class="p-right">
+        <div class="p-price">Rp2.000</div>
+        <button class="buy-btn" data-name="Grab" data-price="Rp2.000">Buy</button>
+      </div>
     </div>
 
     <div class="price-item" data-name="Gojek" data-price="2.000">
@@ -356,7 +653,10 @@
         <div class="p-icon">GJ</div>
         <div><div class="p-name">Gojek</div><div class="p-sub">verifikasi nomor</div></div>
       </div>
-      <div class="p-price">Rp2.000</div>
+      <div class="p-right">
+        <div class="p-price">Rp2.000</div>
+        <button class="buy-btn" data-name="Gojek" data-price="Rp2.000">Buy</button>
+      </div>
     </div>
   </div>
 
@@ -365,13 +665,93 @@
     <button class="cta-btn" id="pmBtn">$ chat --whatsapp</button>
   </div>
 
+  <a href="#" class="join-channel" id="joinChannelLink" target="_blank" rel="noopener">
+    <span class="jc-icon">📡</span> join saluran WhatsApp kami — info stok &amp; promo terbaru
+  </a>
+
   <div class="foot-note">© 2026 RZAA STORE — all orders processed manually</div>
 
 </div>
 
 <div class="toast" id="toast"></div>
 
+<!-- ===== Popup Promo Saluran ===== -->
+<div class="modal-overlay" id="promoOverlay">
+  <div class="modal-box">
+    <div class="modal-close" id="promoClose">✕</div>
+    <span class="promo-badge">● PROMO</span>
+    <h2>Gabung Saluran WhatsApp Kami!</h2>
+    <p class="desc">Pantengin saluran WA buat update stok nomor fresh, promo harga, dan info kilat lainnya. Gratis, tinggal join sekali klik.</p>
+    <a href="#" class="modal-btn" id="promoJoinBtn" target="_blank" rel="noopener">📡 Join Saluran Sekarang</a>
+    <button class="modal-btn ghost" id="promoDismiss">Nanti Aja</button>
+  </div>
+</div>
+
+<!-- ===== Modal Form Buy ===== -->
+<div class="modal-overlay" id="buyOverlay">
+  <div class="modal-box">
+    <div class="modal-close" id="buyClose">✕</div>
+    <h2>Form Order</h2>
+    <p class="desc">Isi data di bawah, nanti otomatis kekirim jadi pesan WhatsApp ke penjual.</p>
+    <form id="buyForm">
+      <div class="form-group">
+        <label for="buyProduct">Produk</label>
+        <input type="text" id="buyProduct" readonly>
+      </div>
+      <div class="form-group">
+        <label for="buyPrice">Harga</label>
+        <input type="text" id="buyPrice" readonly>
+      </div>
+      <div class="form-group">
+        <label for="buyName">Nama</label>
+        <input type="text" id="buyName" placeholder="Nama kamu" required>
+      </div>
+      <div class="form-group">
+        <label for="buyNote">Catatan (opsional)</label>
+        <textarea id="buyNote" placeholder="Tulis catatan tambahan, misal jumlah, request khusus, dll."></textarea>
+      </div>
+      <button type="submit" class="modal-btn">📩 Kirim ke WhatsApp</button>
+    </form>
+  </div>
+</div>
+
 <script>
+  // ---- Loading Screen ----
+  (function(){
+    const fill = document.getElementById('loaderFill');
+    const statusEl = document.getElementById('loaderStatus');
+    const percentEl = document.getElementById('loaderPercent');
+    const screen = document.getElementById('loadingScreen');
+    const bodyEl = document.body;
+
+    const steps = [
+      { p: 18, text: 'connecting to server' },
+      { p: 42, text: 'verifying stock' },
+      { p: 68, text: 'loading pricelist' },
+      { p: 88, text: 'preparing interface' },
+      { p: 100, text: 'ready' }
+    ];
+
+    let i = 0;
+    function nextStep(){
+      if(i >= steps.length){
+        setTimeout(() => {
+          screen.classList.add('hide');
+          bodyEl.classList.remove('is-loading');
+          setTimeout(() => { screen.remove(); }, 550);
+        }, 250);
+        return;
+      }
+      const s = steps[i];
+      fill.style.width = s.p + '%';
+      percentEl.textContent = s.p + '%';
+      statusEl.innerHTML = s.text + '<span class="cursor">_</span>';
+      i++;
+      setTimeout(nextStep, 320 + Math.random() * 260);
+    }
+    setTimeout(nextStep, 200);
+  })();
+
   // ---- Web Audio synthesized click sounds (no external files) ----
   let audioCtx;
   function ctx(){
@@ -417,12 +797,88 @@
   }
 
   const WA_NUMBER = '6285142292088'; // nomor WA tujuan
+  const WA_CHANNEL_LINK = 'https://whatsapp.com/channel/0029Vb98cxe6xCSQ7SyfDn1C';
 
   function buildWaLink(name, price){
     const msg = `Halo!! Saya Ingin Order Nomor Fresh! Layanan : ${name} Harga : Rp${price} Terimakasih`;
     return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
   }
 
+  function buildOrderWaLink({ nama, produk, harga, note }){
+    let msg = `Halo!! Saya Ingin Order Nomor Fresh!\n\nNama : ${nama}\nProduk : ${produk}\nHarga : ${harga || '-'}`;
+    if(note && note.trim() !== ''){
+      msg += `\nCatatan : ${note.trim()}`;
+    }
+    msg += `\n\nTerimakasih`;
+    return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+  }
+
+  // ---- join saluran links ----
+  document.getElementById('joinChannelLink').href = WA_CHANNEL_LINK;
+  document.getElementById('promoJoinBtn').href = WA_CHANNEL_LINK;
+
+  // ---- popup promo saluran (muncul otomatis sekali per sesi) ----
+  const promoOverlay = document.getElementById('promoOverlay');
+  const promoClose = document.getElementById('promoClose');
+  const promoDismiss = document.getElementById('promoDismiss');
+  const promoJoinBtn = document.getElementById('promoJoinBtn');
+
+  function openPromo(){ promoOverlay.classList.add('show'); }
+  function closePromo(){ promoOverlay.classList.remove('show'); }
+
+  setTimeout(() => {
+    openPromo();
+  }, 2400);
+
+  promoClose.addEventListener('click', closePromo);
+  promoDismiss.addEventListener('click', closePromo);
+  promoJoinBtn.addEventListener('click', () => { playConfirm(); closePromo(); });
+  promoOverlay.addEventListener('click', (e) => { if(e.target === promoOverlay) closePromo(); });
+
+  // ---- modal form Buy (per item) ----
+  const buyOverlay = document.getElementById('buyOverlay');
+  const buyClose = document.getElementById('buyClose');
+  const buyForm = document.getElementById('buyForm');
+  const buyProductInput = document.getElementById('buyProduct');
+  const buyPriceInput = document.getElementById('buyPrice');
+
+  function openBuy(name, price){
+    playClick();
+    buyProductInput.value = name;
+    buyPriceInput.value = price;
+    buyOverlay.classList.add('show');
+  }
+  function closeBuy(){ buyOverlay.classList.remove('show'); }
+
+  document.querySelectorAll('.buy-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation(); // biar ga ikut trigger klik card di belakangnya
+      openBuy(btn.dataset.name, btn.dataset.price);
+    });
+  });
+
+  buyClose.addEventListener('click', closeBuy);
+  buyOverlay.addEventListener('click', (e) => { if(e.target === buyOverlay) closeBuy(); });
+
+  buyForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    playConfirm();
+    const nama = document.getElementById('buyName').value.trim();
+    const produk = buyProductInput.value;
+    const harga = buyPriceInput.value;
+    const note = document.getElementById('buyNote').value;
+
+    if(!nama){
+      showToast('> isi nama dulu ya');
+      return;
+    }
+
+    showToast('> order dibuat, membuka WhatsApp...');
+    // langsung redirect di tab yang sama (tanpa delay) biar tidak diblokir popup blocker HP/browser
+    window.location.href = buildOrderWaLink({ nama, produk, harga, note });
+  });
+
+  // ---- klik kartu produk (highlight + tombol chat WA cepat) ----
   let lastSelected = null;
 
   document.querySelectorAll('.price-item').forEach(item => {
@@ -431,10 +887,6 @@
       document.querySelectorAll('.price-item').forEach(i => i.classList.remove('tapped'));
       item.classList.add('tapped');
       lastSelected = { name: item.dataset.name, price: item.dataset.price };
-      showToast(`> ${item.dataset.name} — Rp${item.dataset.price} dipilih. Membuka WhatsApp...`);
-      setTimeout(() => {
-        window.open(buildWaLink(lastSelected.name, lastSelected.price), '_blank');
-      }, 400);
     });
   });
 
@@ -445,9 +897,7 @@
       return;
     }
     showToast('> menghubungkan ke WhatsApp...');
-    setTimeout(() => {
-      window.open(buildWaLink(lastSelected.name, lastSelected.price), '_blank');
-    }, 400);
+    window.location.href = buildWaLink(lastSelected.name, lastSelected.price);
   });
 </script>
 
