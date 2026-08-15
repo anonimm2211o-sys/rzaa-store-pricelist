@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RZAA STORE — Fresh Number Provisioning</title>
+
+<!-- ===== Meta Open Graph (thumbnail preview WA/FB/Telegram/dll) ===== -->
+<meta property="og:title" content="RZAA STORE — Virtual Number">
+<meta property="og:description" content="Provider nomor fresh murah & terpercaya. Payment di akhir, PM aja dulu!">
+<meta property="og:image" content="https://rzaa-store-pricelist.vercel.app/banner.png">
+<meta property="og:url" content="https://rzaa-store-pricelist.vercel.app">
+<meta property="og:type" content="website">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -325,6 +333,24 @@
     padding: 0 24px;
     text-align: center;
   }
+  .loader-credit{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    margin-top: 22px;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .loader-credit.show{
+    opacity: 0.75;
+    transform: translateY(0);
+  }
+  .loader-credit span{
+    color: var(--violet);
+    font-weight: 700;
+  }
   .loader-logo{
     font-family: 'JetBrains Mono', monospace;
     font-weight: 800;
@@ -555,6 +581,7 @@
     <div class="loader-track"><div class="loader-fill" id="loaderFill"></div></div>
     <div class="loader-status" id="loaderStatus">initializing<span class="cursor">_</span></div>
     <div class="loader-percent" id="loaderPercent">0%</div>
+    <div class="loader-credit" id="loaderCredit">web created by <span>azazothx</span></div>
   </div>
 </div>
 
@@ -684,6 +711,7 @@
     <p class="desc">Pantengin saluran WA buat update stok nomor fresh, promo harga, dan info kilat lainnya. Gratis, tinggal join sekali klik.</p>
     <a href="#" class="modal-btn" id="promoJoinBtn" target="_blank" rel="noopener">📡 Join Saluran Sekarang</a>
     <button class="modal-btn ghost" id="promoDismiss">Nanti Aja</button>
+    <p style="text-align:center; margin-top:14px; font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--text-dim); opacity:0.7;">web created by azazothx</p>
   </div>
 </div>
 
@@ -722,13 +750,15 @@
     const statusEl = document.getElementById('loaderStatus');
     const percentEl = document.getElementById('loaderPercent');
     const screen = document.getElementById('loadingScreen');
+    const creditEl = document.getElementById('loaderCredit');
     const bodyEl = document.body;
 
     const steps = [
-      { p: 18, text: 'connecting to server' },
-      { p: 42, text: 'verifying stock' },
-      { p: 68, text: 'loading pricelist' },
-      { p: 88, text: 'preparing interface' },
+      { p: 12, text: 'connecting to server' },
+      { p: 30, text: 'verifying stock' },
+      { p: 50, text: 'loading pricelist' },
+      { p: 70, text: 'preparing interface' },
+      { p: 88, text: 'finalizing' },
       { p: 100, text: 'ready' }
     ];
 
@@ -739,7 +769,7 @@
           screen.classList.add('hide');
           bodyEl.classList.remove('is-loading');
           setTimeout(() => { screen.remove(); }, 550);
-        }, 250);
+        }, 600);
         return;
       }
       const s = steps[i];
@@ -747,9 +777,10 @@
       percentEl.textContent = s.p + '%';
       statusEl.innerHTML = s.text + '<span class="cursor">_</span>';
       i++;
-      setTimeout(nextStep, 320 + Math.random() * 260);
+      setTimeout(nextStep, 550 + Math.random() * 400);
     }
-    setTimeout(nextStep, 200);
+    setTimeout(nextStep, 300);
+    setTimeout(() => { creditEl.classList.add('show'); }, 900);
   })();
 
   // ---- Web Audio synthesized click sounds (no external files) ----
