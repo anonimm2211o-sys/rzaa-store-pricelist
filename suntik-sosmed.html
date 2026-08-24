@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RZAA STORE — Suntik Sosmed</title>
+<meta property="og:title" content="RZAA STORE — Suntik Sosmed">
+<meta property="og:description" content="Boost followers, likes & member sosmed kamu. Proses cepat, harga terjangkau!">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void: #08060d;
+    --panel: #120e1d;
+    --panel-line: rgba(168,111,255,0.16);
+    --violet: #9b5cff;
+    --magenta: #ff4fd8;
+    --term-green: #5dffa8;
+    --text-main: #ece7f7;
+    --text-dim: #8b83a6;
+    --amber: #ffb454;
+    --cyan: #4fd8ff;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background: var(--void);
+    color: var(--text-main);
+    font-family: 'Space Grotesk', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before{
+    content:"";
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(155,92,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(155,92,255,0.05) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 20%, black 20%, transparent 75%);
+    pointer-events: none; z-index: 0;
+  }
+
+  .glow-orb{
+    position: fixed;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(79,216,255,0.2), rgba(155,92,255,0.2), transparent 70%);
+    filter: blur(50px);
+    top: -260px; left: 50%; transform: translateX(-50%);
+    pointer-events: none; z-index: 0;
+    animation: drift 14s ease-in-out infinite;
+  }
+  @keyframes drift{
+    0%,100%{ transform: translateX(-52%) translateY(0); }
+    50%{ transform: translateX(-48%) translateY(28px); }
+  }
+
+  .wrap{ position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 48px 16px 90px; }
+
+  /* ===== BACK NAV ===== */
+  .back-nav{
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+    text-decoration: none;
+    margin-bottom: 20px;
+    padding: 8px 14px;
+    border: 1px solid var(--panel-line);
+    border-radius: 8px;
+    background: rgba(18,14,29,0.5);
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .back-nav:hover{ color: var(--text-main); border-color: var(--violet); }
+
+  /* ===== TERM BAR + HERO ===== */
+  .term-bar{
+    display:flex; align-items:center; gap:8px;
+    padding: 10px 16px;
+    background: rgba(18,14,29,0.7);
+    border: 1px solid var(--panel-line);
+    border-bottom: none;
+    border-radius: 12px 12px 0 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: var(--text-dim);
+  }
+  .dot{ width:9px; height:9px; border-radius:50%; }
+  .dot.r{ background:#ff5f57; } .dot.y{ background:#febc2e; } .dot.g{ background:#28c840; }
+  .term-path{ margin-left: 10px; opacity:.7; }
+
+  .hero{
+    border: 1px solid var(--panel-line); border-top: none;
+    background: linear-gradient(180deg, rgba(24,18,38,0.85), rgba(12,9,20,0.9));
+    backdrop-filter: blur(18px);
+    border-radius: 0 0 16px 16px;
+    padding: 28px 24px 26px;
+    box-shadow: 0 30px 60px -30px rgba(79,216,255,0.2);
+  }
+
+  .status-line{
+    font-family:'JetBrains Mono', monospace; font-size: 12px;
+    color: var(--cyan);
+    display:flex; align-items:center; gap: 9px;
+  }
+  .pulse{
+    width:8px; height:8px; border-radius:50%;
+    background: var(--cyan); box-shadow: 0 0 10px var(--cyan);
+    animation: blink 1.4s ease-in-out infinite;
+  }
+  @keyframes blink{ 0%,100%{ opacity:1; } 50%{ opacity:0.2; } }
+
+  .hero h1{
+    font-size: clamp(1.7rem, 6vw, 2.4rem);
+    font-weight: 700; line-height: 1.1;
+    margin: 14px 0 6px;
+    background: linear-gradient(120deg, #fff 20%, var(--cyan) 55%, var(--violet) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero .subtitle{ color: var(--text-dim); font-size: 0.9rem; line-height: 1.5; max-width: 44ch; }
+
+  .badge-row{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+  .badge{
+    font-family:'JetBrains Mono', monospace; font-size:11px;
+    color: var(--text-main);
+    background: rgba(79,216,255,0.08);
+    border: 1px solid rgba(79,216,255,0.18);
+    padding: 5px 10px; border-radius:999px;
+    display:flex; align-items:center; gap:5px;
+  }
+  .badge::before{ content:"↑"; color: var(--cyan); font-weight:700; }
+
+  /* ===== PLATFORM FILTER TABS ===== */
+  .filter-wrap{ margin: 30px 0 0; }
+  .filter-label{
+    font-family:'JetBrains Mono', monospace; font-size:11px;
+    color: var(--text-dim); text-transform:uppercase; letter-spacing:0.12em;
+    margin-bottom: 10px;
+  }
+  .filter-tabs{
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .filter-tab{
+    font-family:'JetBrains Mono', monospace; font-size:12px; font-weight:700;
+    padding: 9px 16px; border-radius:10px;
+    border: 1px solid var(--panel-line);
+    background: rgba(18,14,29,0.6);
+    color: var(--text-dim); cursor:pointer;
+    transition: all 0.18s ease;
+    display:flex; align-items:center; gap:7px;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+  .filter-tab:hover{ color: var(--text-main); border-color: rgba(79,216,255,0.35); }
+  .filter-tab.active{
+    color: var(--void);
+    background: linear-gradient(120deg, var(--cyan), #8eefff);
+    border-color: transparent;
+    box-shadow: 0 6px 20px -6px rgba(79,216,255,0.55);
+  }
+  .filter-tab .ft-emoji{ font-size:15px; }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label{
+    font-family:'JetBrains Mono', monospace; font-size:11px;
+    color: var(--cyan); text-transform:uppercase; letter-spacing:0.16em;
+    margin: 28px 0 14px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .section-label::after{ content:""; flex:1; height:1px; background: linear-gradient(90deg, rgba(79,216,255,0.2), transparent); }
+
+  /* ===== CARD GRID ===== */
+  .card-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .smc{
+    position:relative;
+    background: rgba(14,10,22,0.75);
+    border: 1px solid var(--panel-line);
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    -webkit-tap-highlight-color: transparent;
+    display: flex; flex-direction: column;
+  }
+  .smc:hover{
+    transform: translateY(-3px);
+    border-color: rgba(79,216,255,0.4);
+    box-shadow: 0 12px 30px -12px rgba(79,216,255,0.3);
+  }
+  .smc:active{ transform: translateY(0) scale(0.98); }
+  .smc.tapped{
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 1px rgba(79,216,255,0.5), 0 0 28px -6px rgba(79,216,255,0.4);
+  }
+
+  /* card banner */
+  .smc-banner{
+    position:relative;
+    width:100%; aspect-ratio: 16/10;
+    background: linear-gradient(135deg, #0e0a1a 0%, #1a0f2e 50%, #0d1a2e 100%);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .smc-banner::before{
+    content:"";
+    position:absolute; inset:0;
+    background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(79,216,255,0.12), transparent);
+  }
+  .smc-plat-icon{
+    font-size: clamp(28px, 8vw, 38px);
+    position:relative; z-index:1;
+    filter: drop-shadow(0 0 12px rgba(79,216,255,0.4));
+  }
+  .smc-badge-new{
+    position:absolute; top:8px; right:8px;
+    font-family:'JetBrains Mono', monospace; font-size:9px; font-weight:700;
+    color: #fff; background: var(--magenta);
+    padding: 3px 7px; border-radius:999px;
+    letter-spacing:0.06em;
+  }
+  .smc-plat-label{
+    position:absolute; bottom:0; left:0; right:0;
+    font-family:'JetBrains Mono', monospace;
+    font-size: clamp(9px, 2.5vw, 12px);
+    font-weight:700; letter-spacing:0.2em;
+    color: rgba(255,255,255,0.7);
+    text-align:center;
+    padding: 6px 8px 8px;
+    background: linear-gradient(transparent, rgba(8,6,13,0.8));
+  }
+
+  /* card body */
+  .smc-body{ padding: 12px 12px 14px; flex:1; display:flex; flex-direction:column; }
+  .smc-title{
+    font-size: clamp(0.78rem, 2.5vw, 0.9rem);
+    font-weight:700; line-height:1.25;
+    margin-bottom:8px; color: var(--text-main);
+  }
+
+  .smc-qty-wrap{ margin-bottom:10px; }
+  .smc-qty-label{
+    font-family:'JetBrains Mono', monospace; font-size:10px;
+    color: var(--text-dim); text-transform:uppercase; letter-spacing:0.08em;
+    margin-bottom:5px;
+  }
+  .smc-qty-select{
+    width:100%;
+    background: rgba(8,6,13,0.7);
+    border: 1px solid var(--panel-line);
+    border-radius:8px;
+    padding: 8px 10px;
+    color: var(--text-main);
+    font-family:'JetBrains Mono', monospace; font-size:11px;
+    outline:none; cursor:pointer;
+    appearance:none;
+    transition: border-color 0.15s;
+  }
+  .smc-qty-select:focus{ border-color: var(--cyan); }
+
+  .smc-price-wrap{ margin-top:auto; }
+  .smc-price-final{
+    font-family:'JetBrains Mono', monospace;
+    font-size: clamp(0.88rem, 2.8vw, 1rem);
+    font-weight:700; color: var(--amber);
+  }
+  .smc-price-note{
+    font-family:'JetBrains Mono', monospace; font-size:9.5px;
+    color: var(--text-dim); margin-top:2px;
+  }
+
+  .smc-buy-btn{
+    width:100%; margin-top:10px;
+    font-family:'JetBrains Mono', monospace; font-weight:700; font-size:11px;
+    color: var(--void);
+    background: linear-gradient(120deg, var(--cyan), #8eefff);
+    border:none; padding: 9px 10px; border-radius:8px;
+    cursor:pointer; letter-spacing:0.03em;
+    transition: transform 0.15s ease;
+    position:relative; z-index:2;
+  }
+  .smc-buy-btn:hover{ transform: translateY(-2px); }
+  .smc-buy-btn:active{ transform: scale(0.96); }
+
+  /* ===== MODAL ===== */
+  .modal-overlay{
+    position:fixed; inset:0;
+    background: rgba(4,3,8,0.75);
+    backdrop-filter: blur(6px);
+    display:flex; align-items:center; justify-content:center;
+    z-index:100; padding:20px;
+    opacity:0; pointer-events:none;
+    transition: opacity 0.25s ease;
+  }
+  .modal-overlay.show{ opacity:1; pointer-events:auto; }
+  .modal-box{
+    width:100%; max-width:380px;
+    background: linear-gradient(180deg, rgba(24,18,38,0.98), rgba(14,10,22,0.99));
+    border: 1px solid var(--panel-line);
+    border-radius:16px; padding:26px 22px 22px;
+    position:relative;
+    box-shadow: 0 30px 70px -20px rgba(79,216,255,0.35);
+    transform: translateY(16px) scale(0.97);
+    transition: transform 0.25s ease;
+    max-height: 90vh; overflow-y: auto;
+  }
+  .modal-overlay.show .modal-box{ transform: translateY(0) scale(1); }
+
+  .modal-close{
+    position:absolute; top:14px; right:14px;
+    width:28px; height:28px; border-radius:8px;
+    background: rgba(155,92,255,0.12);
+    border: 1px solid var(--panel-line);
+    color: var(--text-dim);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; font-size:15px; line-height:1;
+  }
+  .modal-close:hover{ color: var(--text-main); border-color: var(--magenta); }
+
+  .modal-box h2{
+    font-size:1.2rem; font-weight:700; margin-bottom:6px;
+    background: linear-gradient(120deg, #fff 20%, var(--cyan) 70%, var(--violet) 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .modal-box p.desc{ color: var(--text-dim); font-size:0.85rem; line-height:1.5; margin-bottom:18px; }
+
+  .form-group{ margin-bottom:13px; }
+  .form-group label{
+    display:block;
+    font-family:'JetBrains Mono', monospace; font-size:10.5px;
+    color: var(--cyan); text-transform:uppercase; letter-spacing:0.08em;
+    margin-bottom:5px;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select{
+    width:100%;
+    background: rgba(8,6,13,0.7);
+    border: 1px solid var(--panel-line);
+    border-radius:9px; padding:10px 12px;
+    color: var(--text-main);
+    font-family:'Space Grotesk', sans-serif; font-size:0.9rem;
+    outline:none; transition: border-color 0.15s;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus{ border-color: var(--cyan); }
+  .form-group input[readonly]{ color: var(--text-dim); cursor:default; }
+  .form-group textarea{ resize:vertical; min-height:56px; }
+  .form-group select{ appearance:none; cursor:pointer; }
+
+  /* target input info box */
+  .target-info{
+    background: rgba(79,216,255,0.06);
+    border: 1px solid rgba(79,216,255,0.18);
+    border-radius: 9px; padding:10px 12px;
+    font-family:'JetBrains Mono', monospace; font-size:11px;
+    color: var(--text-dim); line-height:1.6;
+    margin-bottom:13px;
+  }
+  .target-info span{ color: var(--cyan); font-weight:700; }
+
+  .modal-btn{
+    width:100%;
+    font-family:'JetBrains Mono', monospace; font-weight:700; font-size:0.9rem;
+    color: var(--void);
+    background: linear-gradient(120deg, var(--cyan), #8eefff);
+    border:none; padding:13px 20px; border-radius:10px;
+    cursor:pointer; letter-spacing:0.02em;
+    box-shadow: 0 12px 30px -10px rgba(79,216,255,0.45);
+    transition: transform 0.15s ease;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+  }
+  .modal-btn:hover{ transform: translateY(-2px); }
+  .modal-btn:active{ transform: scale(0.97); }
+
+  /* ===== TOAST ===== */
+  .toast{
+    position:fixed; bottom:24px; left:50%;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(18,14,29,0.96);
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    font-family:'JetBrains Mono', monospace; font-size:12px;
+    padding:10px 18px; border-radius:10px;
+    opacity:0; transition: all 0.25s ease;
+    pointer-events:none; z-index:200;
+    box-shadow: 0 0 20px rgba(79,216,255,0.2);
+  }
+  .toast.show{ opacity:1; transform: translateX(-50%) translateY(0); }
+
+  /* ===== BOTTOM CTA ===== */
+  .bottom-cta{
+    margin-top:36px; text-align:center;
+    padding:22px 18px;
+    border: 1px dashed var(--panel-line);
+    border-radius:14px;
+    background: rgba(79,216,255,0.03);
+  }
+  .bottom-cta p{ color: var(--text-dim); font-size:0.88rem; margin-bottom:12px; }
+  .bottom-cta-btn{
+    font-family:'JetBrains Mono', monospace; font-weight:700; font-size:0.9rem;
+    color: var(--void);
+    background: linear-gradient(120deg, var(--term-green), #8effc8);
+    border:none; padding:13px 24px; border-radius:10px; cursor:pointer;
+    box-shadow: 0 12px 28px -10px rgba(93,255,168,0.4);
+    transition: transform 0.15s ease;
+  }
+  .bottom-cta-btn:hover{ transform: translateY(-2px); }
+
+  .foot-note{
+    text-align:center; margin-top:26px;
+    font-family:'JetBrains Mono', monospace; font-size:11px;
+    color: var(--text-dim); opacity:0.5;
+  }
+
+  /* ===== LOADING ===== */
+  #loadingScreen{
+    position:fixed; inset:0; background: var(--void); z-index:999;
+    display:flex; align-items:center; justify-content:center;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+  #loadingScreen.hide{ opacity:0; visibility:hidden; pointer-events:none; }
+  #loadingScreen::before{
+    content:""; position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(79,216,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(79,216,255,0.05) 1px, transparent 1px);
+    background-size:42px 42px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 75%);
+  }
+  .loader-box{ position:relative; width:100%; max-width:300px; padding:0 24px; text-align:center; }
+  .loader-logo{
+    font-family:'JetBrains Mono', monospace; font-weight:800; font-size:1.2rem;
+    letter-spacing:0.06em; margin-bottom:6px;
+    background: linear-gradient(120deg, #fff 20%, var(--cyan) 60%, var(--violet) 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .loader-sub{
+    font-family:'JetBrains Mono', monospace; font-size:10px;
+    color: var(--cyan); letter-spacing:0.15em; text-transform:uppercase;
+    margin-bottom:20px; opacity:0.7;
+  }
+  .loader-track{
+    width:100%; height:4px;
+    background: rgba(79,216,255,0.1);
+    border-radius:999px; overflow:hidden; margin-bottom:12px;
+  }
+  .loader-fill{
+    height:100%; width:0%;
+    background: linear-gradient(90deg, var(--cyan), var(--violet), var(--magenta));
+    background-size:200% 100%;
+    border-radius:999px; transition: width 0.25s ease;
+    animation: shimmer 1.2s linear infinite;
+  }
+  @keyframes shimmer{ 0%{background-position:0% 0} 100%{background-position:200% 0} }
+  .loader-status{
+    font-family:'JetBrains Mono', monospace; font-size:11px;
+    color: var(--cyan); letter-spacing:0.03em;
+  }
+  .loader-status .cursor{ animation: blink 0.9s step-end infinite; }
+  .loader-percent{
+    font-family:'JetBrains Mono', monospace; font-size:10px;
+    color: var(--text-dim); margin-top:8px; letter-spacing:0.1em;
+  }
+  .wrap{ animation: contentIn 0.5s ease both; }
+  @keyframes contentIn{ from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  body.is-loading .wrap{ animation-play-state:paused; opacity:0; }
+
+  @media(max-width:420px){
+    .card-grid{ gap:9px; }
+    .smc-body{ padding:10px 10px 12px; }
+    .smc-title{ font-size:0.75rem; }
+  }
+</style>
+</head>
+<body class="is-loading">
+
+<div id="loadingScreen">
+  <div class="loader-box">
+    <div class="loader-logo">RZAA STORE</div>
+    <div class="loader-sub">suntik sosmed</div>
+    <div class="loader-track"><div class="loader-fill" id="loaderFill"></div></div>
+    <div class="loader-status" id="loaderStatus">loading<span class="cursor">_</span></div>
+    <div class="loader-percent" id="loaderPercent">0%</div>
+  </div>
+</div>
+
+<div class="glow-orb"></div>
+
+<div class="wrap">
+
+  <a href="index.html" class="back-nav">← back to rzaa store</a>
+
+  <div class="term-bar">
+    <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+    <span class="term-path">rzaa@store:~/suntik-sosmed</span>
+  </div>
+
+  <div class="hero">
+    <div class="status-line"><span class="pulse"></span> BOOST READY — ORDER LANGSUNG DIPROSES</div>
+    <h1>Suntik Sosmed</h1>
+    <p class="subtitle">Boost followers, likes, dan member sosial media kamu. Proses cepat, harga terjangkau, dan aman.</p>
+    <div class="badge-row">
+      <span class="badge">Followers real</span>
+      <span class="badge">Proses cepat</span>
+      <span class="badge">Harga terjangkau</span>
+      <span class="badge">Fast respon</span>
+    </div>
+  </div>
+
+  <!-- FILTER TABS -->
+  <div class="filter-wrap">
+    <div class="filter-label">// filter platform</div>
+    <div class="filter-tabs">
+      <div class="filter-tab active" data-platform="all"><span class="ft-emoji">🌐</span> Semua</div>
+      <div class="filter-tab" data-platform="ig"><span class="ft-emoji">📸</span> Instagram</div>
+      <div class="filter-tab" data-platform="tt"><span class="ft-emoji">🎵</span> TikTok</div>
+      <div class="filter-tab" data-platform="wa"><span class="ft-emoji">🟢</span> WhatsApp</div>
+    </div>
+  </div>
+
+  <!-- ===== IG FOLLOWERS ===== -->
+  <div class="section-label" data-plat="ig">ig_followers.list</div>
+  <div class="card-grid" data-plat="ig">
+
+    <div class="smc" data-plat="ig" data-type="IG Followers">
+      <div class="smc-banner">
+        <span class="smc-plat-icon">📸</span>
+        <span class="smc-badge-new">HOT</span>
+        <div class="smc-plat-label">INSTAGRAM</div>
+      </div>
+      <div class="smc-body">
+        <div class="smc-title">IG Followers</div>
+        <div class="smc-qty-wrap">
+          <div class="smc-qty-label">Pilih jumlah</div>
+          <select class="smc-qty-select" data-prices='[14000,19000,26500,29000,32000,36500,39500,42500,44500]' data-qtys='["100","200","300","400","500","600","700","800","900"]'>
+            <option value="14000" data-qty="100">100 Followers — Rp14.000</option>
+            <option value="19000" data-qty="200">200 Followers — Rp19.000</option>
+            <option value="26500" data-qty="300">300 Followers — Rp26.500</option>
+            <option value="29000" data-qty="400">400 Followers — Rp29.000</option>
+            <option value="32000" data-qty="500">500 Followers — Rp32.000</option>
+            <option value="36500" data-qty="600">600 Followers — Rp36.500</option>
+            <option value="39500" data-qty="700">700 Followers — Rp39.500</option>
+            <option value="42500" data-qty="800">800 Followers — Rp42.500</option>
+            <option value="44500" data-qty="900">900 Followers — Rp44.500</option>
+          </select>
+        </div>
+        <div class="smc-price-wrap">
+          <div class="smc-price-final" id="price-ig-followers">Rp14.000</div>
+          <div class="smc-price-note">+2.000 service fee included</div>
+        </div>
+        <button class="smc-buy-btn" data-card="ig-followers">📩 Order Sekarang</button>
+      </div>
+    </div>
+
+    <!-- IG LIKES -->
+    <div class="smc" data-plat="ig" data-type="IG Likes">
+      <div class="smc-banner">
+        <span class="smc-plat-icon">❤️</span>
+        <div class="smc-plat-label">INSTAGRAM</div>
+      </div>
+      <div class="smc-body">
+        <div class="smc-title">IG Likes</div>
+        <div class="smc-qty-wrap">
+          <div class="smc-qty-label">Pilih jumlah</div>
+          <select class="smc-qty-select" data-prices='[5460,7440,10150,19724,8500,12833,11807,11150,8150,19500]' data-qtys='["100","200","300","400","500","600","700","800","900","1000"]'>
+            <option value="5460" data-qty="100">100 Likes — Rp5.460</option>
+            <option value="7440" data-qty="200">200 Likes — Rp7.440</option>
+            <option value="10150" data-qty="300">300 Likes — Rp10.150</option>
+            <option value="19724" data-qty="400">400 Likes — Rp19.724</option>
+            <option value="8500" data-qty="500">500 Likes — Rp8.500</option>
+            <option value="12833" data-qty="600">600 Likes — Rp12.833</option>
+            <option value="11807" data-qty="700">700 Likes — Rp11.807</option>
+            <option value="11150" data-qty="800">800 Likes — Rp11.150</option>
+            <option value="8150" data-qty="900">900 Likes — Rp8.150</option>
+            <option value="19500" data-qty="1000">1000 Likes — Rp19.500</option>
+          </select>
+        </div>
+        <div class="smc-price-wrap">
+          <div class="smc-price-final" id="price-ig-likes">Rp5.460</div>
+          <div class="smc-price-note">+2.000 service fee included</div>
+        </div>
+        <button class="smc-buy-btn" data-card="ig-likes">📩 Order Sekarang</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== TT ===== -->
+  <div class="section-label" data-plat="tt">tt_boost.list</div>
+  <div class="card-grid" data-plat="tt">
+
+    <!-- TT LIKES -->
+    <div class="smc" data-plat="tt" data-type="TT Likes">
+      <div class="smc-banner" style="background:linear-gradient(135deg,#0a0a14,#1a0a1a,#0a1020)">
+        <span class="smc-plat-icon">🎵</span>
+        <span class="smc-badge-new">HOT</span>
+        <div class="smc-plat-label">TIKTOK</div>
+      </div>
+      <div class="smc-body">
+        <div class="smc-title">TT Likes</div>
+        <div class="smc-qty-wrap">
+          <div class="smc-qty-label">Pilih jumlah</div>
+          <select class="smc-qty-select">
+            <option value="9600" data-qty="100">100 Likes — Rp9.600</option>
+            <option value="13200" data-qty="200">200 Likes — Rp13.200</option>
+            <option value="16700" data-qty="300">300 Likes — Rp16.700</option>
+            <option value="20300" data-qty="400">400 Likes — Rp20.300</option>
+            <option value="23800" data-qty="500">500 Likes — Rp23.800</option>
+            <option value="27300" data-qty="600">600 Likes — Rp27.300</option>
+            <option value="30900" data-qty="700">700 Likes — Rp30.900</option>
+            <option value="34400" data-qty="800">800 Likes — Rp34.400</option>
+            <option value="37960" data-qty="900">900 Likes — Rp37.960</option>
+            <option value="41600" data-qty="1000">1000 Likes — Rp41.600</option>
+          </select>
+        </div>
+        <div class="smc-price-wrap">
+          <div class="smc-price-final" id="price-tt-likes">Rp9.600</div>
+          <div class="smc-price-note">+2.000 service fee included</div>
+        </div>
+        <button class="smc-buy-btn" data-card="tt-likes">📩 Order Sekarang</button>
+      </div>
+    </div>
+
+    <!-- TT FOLLOWERS -->
+    <div class="smc" data-plat="tt" data-type="TT Followers">
+      <div class="smc-banner" style="background:linear-gradient(135deg,#0a0a14,#1a0a1a,#0a1020)">
+        <span class="smc-plat-icon">🎵</span>
+        <div class="smc-plat-label">TIKTOK</div>
+      </div>
+      <div class="smc-body">
+        <div class="smc-title">TT Followers</div>
+        <div class="smc-qty-wrap">
+          <div class="smc-qty-label">Pilih jumlah</div>
+          <select class="smc-qty-select">
+            <option value="16500" data-qty="100">100 Followers — Rp16.500</option>
+            <option value="22850" data-qty="200">200 Followers — Rp22.850</option>
+            <option value="32500" data-qty="300">300 Followers — Rp32.500</option>
+            <option value="41000" data-qty="400">400 Followers — Rp41.000</option>
+            <option value="49000" data-qty="500">500 Followers — Rp49.000</option>
+            <option value="59000" data-qty="600">600 Followers — Rp59.000</option>
+            <option value="65000" data-qty="700">700 Followers — Rp65.000</option>
+            <option value="74000" data-qty="800">800 Followers — Rp74.000</option>
+            <option value="84000" data-qty="900">900 Followers — Rp84.000</option>
+          </select>
+        </div>
+        <div class="smc-price-wrap">
+          <div class="smc-price-final" id="price-tt-followers">Rp16.500</div>
+          <div class="smc-price-note">+2.000 service fee included</div>
+        </div>
+        <button class="smc-buy-btn" data-card="tt-followers">📩 Order Sekarang</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== WA SALURAN ===== -->
+  <div class="section-label" data-plat="wa">wa_saluran.list</div>
+  <div class="card-grid" data-plat="wa">
+
+    <div class="smc" data-plat="wa" data-type="WA Member Saluran" style="grid-column: 1 / -1; max-width: 360px;">
+      <div class="smc-banner" style="background:linear-gradient(135deg,#061a0e,#0a2010,#061a0e); aspect-ratio:16/8">
+        <span class="smc-plat-icon">🟢</span>
+        <span class="smc-badge-new">POPULER</span>
+        <div class="smc-plat-label">WHATSAPP SALURAN</div>
+      </div>
+      <div class="smc-body">
+        <div class="smc-title">WA Member Saluran</div>
+        <div class="smc-qty-wrap">
+          <div class="smc-qty-label">Pilih jumlah</div>
+          <select class="smc-qty-select">
+            <option value="10700" data-qty="100">100 Member — Rp10.700</option>
+            <option value="12610" data-qty="150">150 Member — Rp12.610</option>
+            <option value="14400" data-qty="200">200 Member — Rp14.400</option>
+            <option value="16684" data-qty="250">250 Member — Rp16.684</option>
+            <option value="18400" data-qty="300">300 Member — Rp18.400</option>
+            <option value="20757" data-qty="350">350 Member — Rp20.757</option>
+            <option value="22880" data-qty="400">400 Member — Rp22.880</option>
+            <option value="24830" data-qty="450">450 Member — Rp24.830</option>
+            <option value="26700" data-qty="500">500 Member — Rp26.700</option>
+            <option value="28904" data-qty="550">550 Member — Rp28.904</option>
+            <option value="30850" data-qty="600">600 Member — Rp30.850</option>
+            <option value="32977" data-qty="650">650 Member — Rp32.977</option>
+            <option value="34100" data-qty="700">700 Member — Rp34.100</option>
+            <option value="37050" data-qty="750">750 Member — Rp37.050</option>
+            <option value="38113" data-qty="800">800 Member — Rp38.113</option>
+            <option value="41124" data-qty="850">850 Member — Rp41.124</option>
+            <option value="42127" data-qty="900">900 Member — Rp42.127</option>
+            <option value="45197" data-qty="950">950 Member — Rp45.197</option>
+            <option value="47500" data-qty="1000">1000 Member — Rp47.500</option>
+          </select>
+        </div>
+        <div class="smc-price-wrap">
+          <div class="smc-price-final" id="price-wa-member">Rp10.700</div>
+          <div class="smc-price-note">+2.000 service fee included</div>
+        </div>
+        <button class="smc-buy-btn" data-card="wa-member">📩 Order Sekarang</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="bottom-cta">
+    <p>Ada yang mau ditanya dulu? PM aja, fast respon!</p>
+    <button class="bottom-cta-btn" id="pmBtn">$ chat --whatsapp</button>
+  </div>
+
+  <div class="foot-note">© 2026 RZAA STORE — all orders processed manually</div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ORDER MODAL -->
+<div class="modal-overlay" id="orderOverlay">
+  <div class="modal-box">
+    <div class="modal-close" id="orderClose">✕</div>
+    <h2>Form Order</h2>
+    <p class="desc">Isi data di bawah — pesan otomatis kekirim ke WA penjual.</p>
+
+    <div class="form-group">
+      <label>Layanan</label>
+      <input type="text" id="oService" readonly>
+    </div>
+    <div class="form-group">
+      <label>Jumlah</label>
+      <input type="text" id="oQty" readonly>
+    </div>
+    <div class="form-group">
+      <label>Harga</label>
+      <input type="text" id="oPrice" readonly>
+    </div>
+
+    <div class="target-info">
+      <span>📌 Target:</span> Masukkan username / link akun / link saluran yang mau di-boost di kolom target di bawah.
+    </div>
+
+    <div class="form-group">
+      <label>Target (username / link)</label>
+      <input type="text" id="oTarget" placeholder="cth: @namaakun atau https://wa.me/...">
+    </div>
+    <div class="form-group">
+      <label>Nama kamu</label>
+      <input type="text" id="oName" placeholder="Nama buat identifikasi order">
+    </div>
+    <div class="form-group">
+      <label>Catatan (opsional)</label>
+      <textarea id="oNote" placeholder="Request khusus, dll."></textarea>
+    </div>
+
+    <button class="modal-btn" id="submitOrder">📩 Kirim ke WhatsApp</button>
+  </div>
+</div>
+
+<script>
+  // ---- Loading ----
+  (function(){
+    const fill = document.getElementById('loaderFill');
+    const statusEl = document.getElementById('loaderStatus');
+    const percentEl = document.getElementById('loaderPercent');
+    const screen = document.getElementById('loadingScreen');
+    const steps = [
+      {p:15,text:'loading catalog'},
+      {p:40,text:'fetching prices'},
+      {p:65,text:'building cards'},
+      {p:88,text:'almost ready'},
+      {p:100,text:'done'}
+    ];
+    let i=0;
+    function next(){
+      if(i>=steps.length){
+        setTimeout(()=>{
+          screen.classList.add('hide');
+          document.body.classList.remove('is-loading');
+          setTimeout(()=>screen.remove(),550);
+        },500); return;
+      }
+      const s=steps[i];
+      fill.style.width=s.p+'%';
+      percentEl.textContent=s.p+'%';
+      statusEl.innerHTML=s.text+'<span class="cursor">_</span>';
+      i++;
+      setTimeout(next, 500+Math.random()*350);
+    }
+    setTimeout(next,250);
+  })();
+
+  // ---- Audio ----
+  let ctx;
+  function ac(){ if(!ctx) ctx=new(window.AudioContext||window.webkitAudioContext)(); return ctx; }
+  function playClick(){
+    const c=ac(), o=c.createOscillator(), g=c.createGain();
+    o.type='sine'; o.frequency.setValueAtTime(700,c.currentTime);
+    o.frequency.exponentialRampToValueAtTime(350,c.currentTime+0.08);
+    g.gain.setValueAtTime(0.05,c.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+0.1);
+    o.connect(g).connect(c.destination); o.start(); o.stop(c.currentTime+0.1);
+  }
+  function playConfirm(){
+    const c=ac();
+    [700,950].forEach((f,i)=>{
+      const o=c.createOscillator(),g=c.createGain();
+      o.type='triangle'; o.frequency.value=f;
+      g.gain.setValueAtTime(0.05,c.currentTime+i*0.08);
+      g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+i*0.08+0.14);
+      o.connect(g).connect(c.destination);
+      o.start(c.currentTime+i*0.08); o.stop(c.currentTime+i*0.08+0.15);
+    });
+  }
+
+  const toast = document.getElementById('toast');
+  function showToast(msg){
+    toast.textContent=msg; toast.classList.add('show');
+    clearTimeout(showToast._t);
+    showToast._t=setTimeout(()=>toast.classList.remove('show'),1900);
+  }
+
+  const WA_NUMBER = '6285142292088';
+  function fmtRp(n){ return 'Rp'+n.toLocaleString('id-ID'); }
+
+  // ---- Price select sync ----
+  document.querySelectorAll('.smc-qty-select').forEach(sel => {
+    const card = sel.closest('.smc');
+    const priceEl = card.querySelector('.smc-price-final');
+    function sync(){
+      const val = parseInt(sel.value);
+      priceEl.textContent = fmtRp(val);
+    }
+    sel.addEventListener('change', sync);
+    sync();
+  });
+
+  // ---- Filter tabs ----
+  const filterTabs = document.querySelectorAll('.filter-tab');
+  filterTabs.forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      playClick();
+      filterTabs.forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+      const plat = tab.dataset.platform;
+      document.querySelectorAll('[data-plat]').forEach(el=>{
+        if(plat==='all' || el.dataset.plat===plat){
+          el.style.display='';
+        } else {
+          el.style.display='none';
+        }
+      });
+    });
+  });
+
+  // ---- Order Modal ----
+  const overlay = document.getElementById('orderOverlay');
+  const oClose = document.getElementById('orderClose');
+  let currentOrder = {};
+
+  function openOrder(service, qty, price){
+    currentOrder = {service, qty, price};
+    document.getElementById('oService').value = service;
+    document.getElementById('oQty').value = qty;
+    document.getElementById('oPrice').value = price;
+    document.getElementById('oTarget').value = '';
+    document.getElementById('oName').value = '';
+    document.getElementById('oNote').value = '';
+    overlay.classList.add('show');
+  }
+  function closeOrder(){ overlay.classList.remove('show'); }
+
+  oClose.addEventListener('click', closeOrder);
+  overlay.addEventListener('click', e=>{ if(e.target===overlay) closeOrder(); });
+
+  document.querySelectorAll('.smc-buy-btn').forEach(btn=>{
+    btn.addEventListener('click', e=>{
+      e.stopPropagation();
+      playClick();
+      const card = btn.closest('.smc');
+      const sel = card.querySelector('.smc-qty-select');
+      const selOpt = sel.options[sel.selectedIndex];
+      const service = card.dataset.type;
+      const qty = selOpt.dataset.qty || selOpt.text.split('—')[0].trim();
+      const price = fmtRp(parseInt(sel.value));
+      openOrder(service, qty, price);
+    });
+  });
+
+  document.getElementById('submitOrder').addEventListener('click',()=>{
+    const target = document.getElementById('oTarget').value.trim();
+    const name = document.getElementById('oName').value.trim();
+    const note = document.getElementById('oNote').value.trim();
+
+    if(!target){ showToast('> isi target dulu ya (username/link)'); return; }
+    if(!name){ showToast('> isi nama kamu dulu ya'); return; }
+
+    playConfirm();
+    let msg = `Halo!! Saya Ingin Order Suntik Sosmed!\n\nLayanan : ${currentOrder.service}\nJumlah : ${currentOrder.qty}\nHarga : ${currentOrder.price}\nTarget : ${target}\nNama : ${name}`;
+    if(note) msg += `\nCatatan : ${note}`;
+    msg += `\n\nTerimakasih!`;
+
+    showToast('> membuka WhatsApp...');
+    window.location.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+  });
+
+  // ---- PM Button ----
+  document.getElementById('pmBtn').addEventListener('click',()=>{
+    playConfirm();
+    window.location.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Halo RZAA Store, mau tanya-tanya dulu nih!')}`;
+  });
+
+  // ---- Card tap highlight ----
+  document.querySelectorAll('.smc').forEach(card=>{
+    card.addEventListener('click',()=>{
+      document.querySelectorAll('.smc').forEach(c=>c.classList.remove('tapped'));
+      card.classList.add('tapped');
+    });
+  });
+</script>
+
+</body>
+</html>
