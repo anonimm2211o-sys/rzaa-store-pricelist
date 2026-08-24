@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RZAA STORE — Fresh Number Provisioning</title>
 
-<!-- ===== Meta Open Graph (thumbnail preview WA/FB/Telegram/dll) ===== -->
 <meta property="og:title" content="RZAA STORE — Virtual Number">
 <meta property="og:description" content="Provider nomor fresh murah & terpercaya. Payment di akhir, PM aja dulu!">
 <meta property="og:image" content="https://rzaa-store-pricelist.vercel.app/banner.png">
@@ -28,7 +27,6 @@
   }
 
   *{ margin:0; padding:0; box-sizing:border-box; }
-
   html{ scroll-behavior:smooth; }
 
   body{
@@ -40,7 +38,6 @@
     position: relative;
   }
 
-  /* ambient grid + glow */
   body::before{
     content:"";
     position: fixed;
@@ -73,7 +70,6 @@
 
   .wrap{ position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 56px 20px 90px; }
 
-  /* header / terminal chrome */
   .term-bar{
     display:flex; align-items:center; gap:8px;
     padding: 10px 16px;
@@ -149,214 +145,159 @@
   }
   .badge::before{ content:"✓"; color: var(--term-green); font-weight:700; }
 
-  /* section label */
+  .cat-tabs-wrap{ margin: 36px 0 0; position: relative; }
+  .cat-tabs{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px; padding: 6px;
+    background: rgba(18,14,29,0.7);
+    border: 1px solid var(--panel-line);
+    border-radius: 14px;
+    backdrop-filter: blur(10px);
+  }
+  .cat-tab{
+    position: relative;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 5px;
+    padding: 14px 10px 12px;
+    border-radius: 10px; cursor: pointer;
+    border: 1px solid transparent;
+    background: transparent;
+    transition: all 0.22s ease;
+    -webkit-tap-highlight-color: transparent;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    user-select: none;
+  }
+  .cat-tab:hover{ color: var(--text-main); background: rgba(155,92,255,0.08); border-color: var(--panel-line); }
+  .cat-tab.active{
+    color: var(--void);
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    border-color: transparent;
+    box-shadow: 0 8px 24px -8px rgba(155,92,255,0.6);
+  }
+  .cat-tab .tab-icon{ font-size: 20px; line-height: 1; }
+  .cat-tab .tab-label{ font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; line-height: 1.3; }
+  .cat-tab .tab-count{ font-size: 9.5px; opacity: 0.7; letter-spacing: 0.05em; }
+  .cat-tab.active .tab-count{ opacity: 0.8; color: rgba(8,6,13,0.8); }
+
   .section-label{
     font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: var(--violet);
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    margin: 46px 0 14px;
+    font-size: 12px; color: var(--violet);
+    text-transform: uppercase; letter-spacing: 0.18em;
+    margin: 24px 0 14px;
     display:flex; align-items:center; gap: 12px;
   }
-  .section-label::after{
-    content:""; flex:1; height:1px;
-    background: linear-gradient(90deg, var(--panel-line), transparent);
-  }
+  .section-label::after{ content:""; flex:1; height:1px; background: linear-gradient(90deg, var(--panel-line), transparent); }
 
-  /* price list */
+  .cat-panel{ display: none; animation: panelIn 0.28s ease both; }
+  .cat-panel.active{ display: block; }
+  @keyframes panelIn{ from{ opacity: 0; transform: translateY(10px); } to{ opacity: 1; transform: translateY(0); } }
+
   .price-list{ display:flex; flex-direction:column; gap: 10px; }
-
   .price-item{
     position: relative;
     display:flex; align-items:center; justify-content:space-between;
-    gap: 16px;
-    padding: 16px 18px;
+    gap: 16px; padding: 16px 18px;
     background: rgba(18,14,29,0.6);
     border: 1px solid var(--panel-line);
-    border-radius: 12px;
-    cursor: pointer;
-    overflow: hidden;
+    border-radius: 12px; cursor: pointer; overflow: hidden;
     transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
     -webkit-tap-highlight-color: transparent;
   }
   .price-item::before{
-    content:"";
-    position:absolute; inset:0;
+    content:""; position:absolute; inset:0;
     background: linear-gradient(120deg, transparent, rgba(155,92,255,0.14), transparent);
-    transform: translateX(-120%);
-    transition: transform 0.5s ease;
+    transform: translateX(-120%); transition: transform 0.5s ease;
   }
-  .price-item:hover{
-    border-color: rgba(155,92,255,0.55);
-    background: rgba(28,20,46,0.75);
-    transform: translateY(-2px);
-  }
+  .price-item:hover{ border-color: rgba(155,92,255,0.55); background: rgba(28,20,46,0.75); transform: translateY(-2px); }
   .price-item:hover::before{ transform: translateX(120%); }
   .price-item:active{ transform: translateY(0) scale(0.985); }
-
-  .price-item.tapped{
-    border-color: var(--magenta);
-    box-shadow: 0 0 0 1px rgba(255,79,216,0.4), 0 0 24px -4px rgba(255,79,216,0.5);
-  }
+  .price-item.tapped{ border-color: var(--magenta); box-shadow: 0 0 0 1px rgba(255,79,216,0.4), 0 0 24px -4px rgba(255,79,216,0.5); }
 
   .p-left{ display:flex; align-items:center; gap: 12px; }
   .p-icon{
-    width: 38px; height: 38px;
-    border-radius: 10px;
+    width: 38px; height: 38px; border-radius: 10px;
     display:flex; align-items:center; justify-content:center;
-    font-family:'JetBrains Mono', monospace;
-    font-weight:700;
-    font-size: 14px;
-    background: rgba(155,92,255,0.14);
-    border: 1px solid var(--panel-line);
-    color: var(--text-main);
-    flex-shrink:0;
+    font-family:'JetBrains Mono', monospace; font-weight:700; font-size: 14px;
+    background: rgba(155,92,255,0.14); border: 1px solid var(--panel-line);
+    color: var(--text-main); flex-shrink:0;
   }
   .p-name{ font-weight: 600; font-size: 0.98rem; }
   .p-sub{ font-family:'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); margin-top:2px; }
-
-  .p-price{
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 700;
-    font-size: 1.02rem;
-    color: var(--amber);
-    white-space: nowrap;
-  }
-
+  .p-price{ font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.02rem; color: var(--amber); white-space: nowrap; }
   .p-right{ display:flex; align-items:center; gap: 12px; flex-shrink:0; }
 
   .buy-btn{
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 700;
-    font-size: 11.5px;
-    color: var(--void);
-    background: linear-gradient(120deg, var(--term-green), #8effc8);
-    border: none;
-    padding: 8px 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    letter-spacing: 0.03em;
-    white-space: nowrap;
-    transition: transform 0.15s ease;
-    position: relative;
-    z-index: 2;
+    font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 11.5px;
+    color: var(--void); background: linear-gradient(120deg, var(--term-green), #8effc8);
+    border: none; padding: 8px 14px; border-radius: 8px; cursor: pointer;
+    letter-spacing: 0.03em; white-space: nowrap; transition: transform 0.15s ease;
+    position: relative; z-index: 2;
   }
   .buy-btn:hover{ transform: translateY(-2px); }
   .buy-btn:active{ transform: translateY(0) scale(0.95); }
 
-  /* footer / CTA */
   .cta{
-    margin-top: 40px;
-    text-align:center;
-    padding: 26px 20px;
-    border: 1px dashed var(--panel-line);
-    border-radius: 14px;
-    background: rgba(155,92,255,0.05);
+    margin-top: 40px; text-align:center;
+    padding: 26px 20px; border: 1px dashed var(--panel-line);
+    border-radius: 14px; background: rgba(155,92,255,0.05);
   }
   .cta p{ color: var(--text-dim); font-size: 0.9rem; margin-bottom: 14px; }
   .cta-btn{
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: var(--void);
-    background: linear-gradient(120deg, var(--term-green), #8effc8);
-    border: none;
-    padding: 14px 26px;
-    border-radius: 10px;
-    cursor: pointer;
-    letter-spacing: 0.02em;
-    box-shadow: 0 12px 30px -10px rgba(93,255,168,0.5);
+    font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 0.95rem;
+    color: var(--void); background: linear-gradient(120deg, var(--term-green), #8effc8);
+    border: none; padding: 14px 26px; border-radius: 10px; cursor: pointer;
+    letter-spacing: 0.02em; box-shadow: 0 12px 30px -10px rgba(93,255,168,0.5);
     transition: transform 0.15s ease;
   }
   .cta-btn:hover{ transform: translateY(-2px); }
   .cta-btn:active{ transform: translateY(0) scale(0.97); }
 
-  .foot-note{
-    text-align:center;
-    margin-top: 30px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--text-dim);
-    opacity: 0.6;
-  }
+  .foot-note{ text-align:center; margin-top: 30px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); opacity: 0.6; }
 
   .toast{
-    position: fixed;
-    bottom: 24px; left: 50%;
+    position: fixed; bottom: 24px; left: 50%;
     transform: translateX(-50%) translateY(20px);
-    background: rgba(18,14,29,0.95);
-    border: 1px solid var(--term-green);
-    color: var(--term-green);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12.5px;
-    padding: 10px 18px;
-    border-radius: 10px;
-    opacity: 0;
-    transition: all 0.25s ease;
-    pointer-events:none;
-    z-index: 10;
-    box-shadow: 0 0 20px rgba(93,255,168,0.25);
+    background: rgba(18,14,29,0.95); border: 1px solid var(--term-green);
+    color: var(--term-green); font-family: 'JetBrains Mono', monospace; font-size: 12.5px;
+    padding: 10px 18px; border-radius: 10px; opacity: 0; transition: all 0.25s ease;
+    pointer-events:none; z-index: 10; box-shadow: 0 0 20px rgba(93,255,168,0.25);
   }
   .toast.show{ opacity: 1; transform: translateX(-50%) translateY(0); }
 
   @media (max-width: 420px){
     .p-name{ font-size: 0.9rem; }
     .p-price{ font-size: 0.92rem; }
+    .cat-tab .tab-label{ font-size: 9.5px; }
+    .cat-tab{ padding: 12px 6px 10px; }
   }
 
-  /* ===== Loading Screen ===== */
   #loadingScreen{
-    position: fixed; inset: 0;
-    background: var(--void);
-    z-index: 999;
+    position: fixed; inset: 0; background: var(--void); z-index: 999;
     display:flex; align-items:center; justify-content:center;
     transition: opacity 0.5s ease, visibility 0.5s ease;
   }
-  #loadingScreen.hide{
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
+  #loadingScreen.hide{ opacity: 0; visibility: hidden; pointer-events: none; }
   #loadingScreen::before{
-    content:"";
-    position: absolute; inset: 0;
+    content:""; position: absolute; inset: 0;
     background-image:
       linear-gradient(rgba(155,92,255,0.05) 1px, transparent 1px),
       linear-gradient(90deg, rgba(155,92,255,0.05) 1px, transparent 1px);
     background-size: 42px 42px;
     mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 75%);
   }
-  .loader-box{
-    position: relative;
-    width: 100%; max-width: 320px;
-    padding: 0 24px;
-    text-align: center;
-  }
+  .loader-box{ position: relative; width: 100%; max-width: 320px; padding: 0 24px; text-align: center; }
   .loader-credit{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    color: var(--text-dim);
-    margin-top: 22px;
-    opacity: 0;
-    transform: translateY(6px);
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em;
+    color: var(--text-dim); margin-top: 22px; opacity: 0; transform: translateY(6px);
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
-  .loader-credit.show{
-    opacity: 0.75;
-    transform: translateY(0);
-  }
-  .loader-credit span{
-    color: var(--violet);
-    font-weight: 700;
-  }
+  .loader-credit.show{ opacity: 0.75; transform: translateY(0); }
+  .loader-credit span{ color: var(--violet); font-weight: 700; }
   .loader-logo{
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 800;
-    font-size: 1.5rem;
-    letter-spacing: 0.06em;
-    margin-bottom: 22px;
+    font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 1.5rem;
+    letter-spacing: 0.06em; margin-bottom: 22px;
     background: linear-gradient(120deg, #fff 20%, var(--violet) 60%, var(--magenta) 100%);
     -webkit-background-clip: text; background-clip: text; color: transparent;
     animation: logoPulse 1.6s ease-in-out infinite;
@@ -365,212 +306,89 @@
     0%,100%{ filter: drop-shadow(0 0 0px rgba(155,92,255,0)); }
     50%{ filter: drop-shadow(0 0 14px rgba(155,92,255,0.55)); }
   }
-
   .loader-track{
-    width: 100%;
-    height: 5px;
-    background: rgba(155,92,255,0.12);
-    border: 1px solid var(--panel-line);
-    border-radius: 999px;
-    overflow: hidden;
-    margin-bottom: 14px;
+    width: 100%; height: 5px; background: rgba(155,92,255,0.12);
+    border: 1px solid var(--panel-line); border-radius: 999px; overflow: hidden; margin-bottom: 14px;
   }
   .loader-fill{
-    height: 100%;
-    width: 0%;
+    height: 100%; width: 0%;
     background: linear-gradient(90deg, var(--violet), var(--magenta), var(--term-green));
-    background-size: 200% 100%;
-    border-radius: 999px;
-    animation: shimmer 1.2s linear infinite;
-    transition: width 0.25s ease;
+    background-size: 200% 100%; border-radius: 999px;
+    animation: shimmer 1.2s linear infinite; transition: width 0.25s ease;
   }
-  @keyframes shimmer{
-    0%{ background-position: 0% 0; }
-    100%{ background-position: 200% 0; }
-  }
+  @keyframes shimmer{ 0%{ background-position: 0% 0; } 100%{ background-position: 200% 0; } }
+  .loader-status{ font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--term-green); letter-spacing: 0.03em; min-height: 16px; }
+  .loader-status .cursor{ display:inline-block; animation: blink 0.9s step-end infinite; }
+  .loader-percent{ font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); margin-top: 10px; letter-spacing: 0.1em; }
 
-  .loader-status{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11.5px;
-    color: var(--term-green);
-    letter-spacing: 0.03em;
-    min-height: 16px;
-  }
-  .loader-status .cursor{
-    display:inline-block;
-    animation: blink 0.9s step-end infinite;
-  }
-
-  .loader-percent{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--text-dim);
-    margin-top: 10px;
-    letter-spacing: 0.1em;
-  }
-
-  /* fade-in konten utama setelah loading selesai */
-  .wrap{
-    animation: contentIn 0.6s ease both;
-  }
-  @keyframes contentIn{
-    from{ opacity: 0; transform: translateY(14px); }
-    to{ opacity: 1; transform: translateY(0); }
-  }
-
+  .wrap{ animation: contentIn 0.6s ease both; }
+  @keyframes contentIn{ from{ opacity: 0; transform: translateY(14px); } to{ opacity: 1; transform: translateY(0); } }
   body.is-loading .wrap{ animation-play-state: paused; opacity: 0; }
 
-  /* join saluran link */
   .join-channel{
     display:flex; align-items:center; justify-content:center; gap:8px;
-    margin-top: 16px;
-    padding: 12px 16px;
-    border: 1px solid var(--panel-line);
-    border-radius: 10px;
-    background: rgba(93,255,168,0.05);
-    text-decoration: none;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12.5px;
-    color: var(--term-green);
+    margin-top: 16px; padding: 12px 16px; border: 1px solid var(--panel-line);
+    border-radius: 10px; background: rgba(93,255,168,0.05); text-decoration: none;
+    font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--term-green);
     transition: transform 0.15s ease, border-color 0.15s ease;
   }
   .join-channel:hover{ transform: translateY(-2px); border-color: var(--term-green); }
   .join-channel .jc-icon{ font-size: 15px; }
 
-  /* ===== Modal overlay (shared: promo popup + buy form) ===== */
   .modal-overlay{
-    position: fixed; inset: 0;
-    background: rgba(4,3,8,0.72);
-    backdrop-filter: blur(6px);
-    display:flex; align-items:center; justify-content:center;
-    z-index: 100;
-    padding: 20px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease;
+    position: fixed; inset: 0; background: rgba(4,3,8,0.72);
+    backdrop-filter: blur(6px); display:flex; align-items:center; justify-content:center;
+    z-index: 100; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
   }
   .modal-overlay.show{ opacity: 1; pointer-events: auto; }
-
   .modal-box{
     width: 100%; max-width: 380px;
     background: linear-gradient(180deg, rgba(24,18,38,0.97), rgba(14,10,22,0.98));
-    border: 1px solid var(--panel-line);
-    border-radius: 16px;
-    padding: 26px 22px 22px;
-    position: relative;
-    box-shadow: 0 30px 70px -20px rgba(155,92,255,0.5);
-    transform: translateY(16px) scale(0.97);
-    transition: transform 0.25s ease;
+    border: 1px solid var(--panel-line); border-radius: 16px; padding: 26px 22px 22px;
+    position: relative; box-shadow: 0 30px 70px -20px rgba(155,92,255,0.5);
+    transform: translateY(16px) scale(0.97); transition: transform 0.25s ease;
   }
   .modal-overlay.show .modal-box{ transform: translateY(0) scale(1); }
-
   .modal-close{
-    position: absolute; top: 14px; right: 14px;
-    width: 28px; height: 28px;
-    border-radius: 8px;
-    background: rgba(155,92,255,0.12);
-    border: 1px solid var(--panel-line);
-    color: var(--text-dim);
-    display:flex; align-items:center; justify-content:center;
-    cursor: pointer;
-    font-size: 15px;
-    line-height: 1;
+    position: absolute; top: 14px; right: 14px; width: 28px; height: 28px;
+    border-radius: 8px; background: rgba(155,92,255,0.12); border: 1px solid var(--panel-line);
+    color: var(--text-dim); display:flex; align-items:center; justify-content:center;
+    cursor: pointer; font-size: 15px; line-height: 1;
   }
   .modal-close:hover{ color: var(--text-main); border-color: var(--magenta); }
-
-  /* promo popup specifics */
   .promo-badge{
     display:inline-flex; align-items:center; gap:6px;
-    font-family:'JetBrains Mono', monospace;
-    font-size: 10.5px;
-    letter-spacing: 0.1em;
-    color: var(--magenta);
-    background: rgba(255,79,216,0.1);
-    border: 1px solid rgba(255,79,216,0.35);
-    padding: 4px 10px;
-    border-radius: 999px;
-    margin-bottom: 14px;
+    font-family:'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em;
+    color: var(--magenta); background: rgba(255,79,216,0.1); border: 1px solid rgba(255,79,216,0.35);
+    padding: 4px 10px; border-radius: 999px; margin-bottom: 14px;
   }
   .modal-box h2{
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-bottom: 8px;
+    font-size: 1.3rem; font-weight: 700; margin-bottom: 8px;
     background: linear-gradient(120deg, #fff 20%, var(--violet) 70%, var(--magenta) 100%);
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
-  .modal-box p.desc{
-    color: var(--text-dim);
-    font-size: 0.88rem;
-    line-height: 1.5;
-    margin-bottom: 18px;
-  }
+  .modal-box p.desc{ color: var(--text-dim); font-size: 0.88rem; line-height: 1.5; margin-bottom: 18px; }
   .modal-btn{
-    width: 100%;
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 700;
-    font-size: 0.92rem;
-    color: var(--void);
-    background: linear-gradient(120deg, var(--term-green), #8effc8);
-    border: none;
-    padding: 13px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    letter-spacing: 0.02em;
-    box-shadow: 0 12px 30px -10px rgba(93,255,168,0.5);
-    transition: transform 0.15s ease;
-    text-decoration: none;
+    width: 100%; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 0.92rem;
+    color: var(--void); background: linear-gradient(120deg, var(--term-green), #8effc8);
+    border: none; padding: 13px 20px; border-radius: 10px; cursor: pointer;
+    letter-spacing: 0.02em; box-shadow: 0 12px 30px -10px rgba(93,255,168,0.5);
+    transition: transform 0.15s ease; text-decoration: none;
     display:flex; align-items:center; justify-content:center; gap:8px;
   }
   .modal-btn:hover{ transform: translateY(-2px); }
   .modal-btn:active{ transform: translateY(0) scale(0.97); }
-
-  .modal-btn.ghost{
-    background: rgba(155,92,255,0.1);
-    color: var(--text-dim);
-    box-shadow: none;
-    margin-top: 8px;
-    border: 1px solid var(--panel-line);
-  }
-
-  /* buy form specifics */
+  .modal-btn.ghost{ background: rgba(155,92,255,0.1); color: var(--text-dim); box-shadow: none; margin-top: 8px; border: 1px solid var(--panel-line); }
   .form-group{ margin-bottom: 14px; }
-  .form-group label{
-    display:block;
-    font-family:'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--violet);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 6px;
+  .form-group label{ display:block; font-family:'JetBrains Mono', monospace; font-size: 11px; color: var(--violet); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .form-group input, .form-group textarea, .form-group select{
+    width: 100%; background: rgba(8,6,13,0.6); border: 1px solid var(--panel-line);
+    border-radius: 9px; padding: 11px 13px; color: var(--text-main);
+    font-family: 'Space Grotesk', sans-serif; font-size: 0.92rem; outline: none; transition: border-color 0.15s ease;
   }
-  .form-group input,
-  .form-group textarea,
-  .form-group select{
-    width: 100%;
-    background: rgba(8,6,13,0.6);
-    border: 1px solid var(--panel-line);
-    border-radius: 9px;
-    padding: 11px 13px;
-    color: var(--text-main);
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.92rem;
-    outline: none;
-    transition: border-color 0.15s ease;
-  }
-  .form-group input:focus,
-  .form-group textarea:focus,
-  .form-group select:focus{
-    border-color: var(--violet);
-  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus{ border-color: var(--violet); }
   .form-group textarea{ resize: vertical; min-height: 60px; }
   .form-group select{ appearance:none; cursor:pointer; }
-  .form-hint{
-    font-family:'JetBrains Mono', monospace;
-    font-size: 10.5px;
-    color: var(--text-dim);
-    margin-top: 6px;
-    opacity: 0.7;
-  }
 </style>
 </head>
 <body class="is-loading">
@@ -606,205 +424,120 @@
     </div>
   </div>
 
-  <div class="section-label">daftar_harga.list</div>
-
-  <div class="price-list" id="priceList">
-    <div class="price-item" data-name="WhatsApp" data-price="5.000">
-      <div class="p-left">
-        <div class="p-icon">WA</div>
-        <div><div class="p-name">WhatsApp</div><div class="p-sub">verifikasi nomor</div></div>
+  <div class="cat-tabs-wrap">
+    <div class="cat-tabs">
+      <div class="cat-tab active" data-tab="nokos">
+        <span class="tab-icon">📱</span>
+        <span class="tab-label">Nokos</span>
+        <span class="tab-count">18 layanan</span>
       </div>
-      <div class="p-right">
-        <div class="p-price">Rp5.000</div>
-        <button class="buy-btn" data-name="WhatsApp" data-price="Rp5.000">Buy</button>
+      <div class="cat-tab" data-tab="suntik">
+        <span class="tab-icon">📊</span>
+        <span class="tab-label">Suntik Sosmed</span>
+        <span class="tab-count">Followers &amp; More</span>
       </div>
-    </div>
-
-    <div class="price-item" data-name="Shopee" data-price="5.000">
-      <div class="p-left">
-        <div class="p-icon">SP</div>
-        <div><div class="p-name">Shopee</div><div class="p-sub">verifikasi nomor</div></div>
-      </div>
-      <div class="p-right">
-        <div class="p-price">Rp5.000</div>
-        <button class="buy-btn" data-name="Shopee" data-price="Rp5.000">Buy</button>
+      <div class="cat-tab" data-tab="apk">
+        <span class="tab-icon">💎</span>
+        <span class="tab-label">Apk Premium</span>
+        <span class="tab-count">Akun &amp; Lisensi</span>
       </div>
     </div>
+  </div>
 
-    <div class="price-item" data-name="Tokopedia" data-price="4.000">
-      <div class="p-left">
-        <div class="p-icon">TP</div>
-        <div><div class="p-name">Tokopedia</div><div class="p-sub">verifikasi nomor</div></div>
-      </div>
-      <div class="p-right">
-        <div class="p-price">Rp4.000</div>
-        <button class="buy-btn" data-name="Tokopedia" data-price="Rp4.000">Buy</button>
-      </div>
-    </div>
+  <div class="cat-panel active" id="panel-nokos">
+    <div class="section-label">nokos/daftar_harga.list</div>
+    <div class="price-list">
 
-    <div class="price-item" data-name="Lazada" data-price="4.000">
-      <div class="p-left">
-        <div class="p-icon">LZ</div>
-        <div><div class="p-name">Lazada</div><div class="p-sub">verifikasi nomor</div></div>
+      <div class="price-item" data-name="WhatsApp" data-price="5.000">
+        <div class="p-left"><div class="p-icon">WA</div><div><div class="p-name">WhatsApp</div><div class="p-sub">verifikasi nomor</div></div></div>
+        <div class="p-right"><div class="p-price">Rp5.000</div><button class="buy-btn" data-name="WhatsApp" data-price="Rp5.000">Buy</button></div>
       </div>
-      <div class="p-right">
-        <div class="p-price">Rp4.000</div>
-        <button class="buy-btn" data-name="Lazada" data-price="Rp4.000">Buy</button>
-      </div>
-    </div>
 
-    <div class="price-item" data-name="TikTok" data-price="2.000">
-      <div class="p-left">
-        <div class="p-icon">TT</div>
-        <div><div class="p-name">TikTok</div><div class="p-sub">verifikasi nomor</div></div>
+      <div class="price-item" data-name="Shopee" data-price="5.000">
+        <div class="p-left"><div class="p-icon">SP</div><div><div class="p-name">Shopee</div><div class="p-sub">verifikasi nomor</div></div></div>
+        <div class="p-right"><div class="p-price">Rp5.000</div><button class="buy-btn" data-name="Shopee" data-price="Rp5.000">Buy</button></div>
       </div>
-      <div class="p-right">
-        <div class="p-price">Rp2.000</div>
-        <button class="buy-btn" data-name="TikTok" data-price="Rp2.000">Buy</button>
-      </div>
-    </div>
 
-    <div class="price-item" data-name="Grab" data-price="2.000">
-      <div class="p-left">
-        <div class="p-icon">GR</div>
-        <div><div class="p-name">Grab</div><div class="p-sub">verifikasi nomor</div></div>
+      <div class="price-item" data-name="Tokopedia" data-price="4.000">
+        <div class="p-left"><div class="p-icon">TP</div><div><div class="p-name">Tokopedia</div><div class="p-sub">verifikasi nomor</div></div></div>
+        <div class="p-right"><div class="p-price">Rp4.000</div><button class="buy-btn" data-name="Tokopedia" data-price="Rp4.000">Buy</button></div>
       </div>
-      <div class="p-right">
-        <div class="p-price">Rp2.000</div>
-        <button class="buy-btn" data-name="Grab" data-price="Rp2.000">Buy</button>
-      </div>
-    </div>
 
-    <div class="price-item" data-name="Gojek" data-price="2.000">
-      <div class="p-left">
-        <div class="p-icon">GJ</div>
-        <div><div class="p-name">Gojek</div><div class="p-sub">verifikasi nomor</div></div>
+      <div class="price-item" data-name="Lazada" data-price="4.000">
+        <div class="p-left"><div class="p-icon">LZ</div><div><div class="p-name">Lazada</div><div class="p-sub">verifikasi nomor</div></div></div>
+        <div class="p-right"><div class="p-price">Rp4.000</div><button class="buy-btn" data-name="Lazada" data-price="Rp4.000">Buy</button></div>
       </div>
-      <div class="p-right">
-        <div class="p-price">Rp2.000</div>
-        <button class="buy-btn" data-name="Gojek" data-price="Rp2.000">Buy</button>
-      </div>
-    </div>
 
-    <div class="price-item" data-name="OVO" data-price="5.000">
-      <div class="p-left">
-        <div class="p-icon">OV</div>
-        <div><div class="p-name">OVO</div><div class="p-sub">verifikasi nomor</div></div>
+      <div class="price-item" data-name="TikTok" data-price="2.000">
+        <div class="p-left"><div class="p-icon">TT</div><div><div class="p-name">TikTok</div><div class="p-sub">verifikasi nomor</div></div></div>
+        <div class="p-right"><div class="p-price">Rp2.000</div><button class="buy-btn" data-name="TikTok" data-price="Rp2.000">Buy</button></div>
       </div>
-      <div class="p-right">
-        <div class="p-price">Rp5.000</div>
-        <button class="buy-btn" data-name="OVO" data-price="Rp5.000">Buy</button>
-      </div>
-    </div>
 
-    <div class="price-item" data-name="Dana" data-price="5.000">
-      <div class="p-left">
-        <div class="p-icon">DN</div>
-        <div><div class="p-name">Dana</div><div class="p-sub">verifikasi nomor</div></div>
+      <div class="price-item" data-name="Grab" data-price="2.000">
+        <div class="p-left"><div class="p-icon">GR</div><div><div class="p-name">Grab</div><div class="p-sub">verifikasi nomor</div></div></div>
+        <div class="p-right"><div class="p-price">Rp2.000</div><button class="buy-btn" data-name="Grab" data-price="Rp2.000">Buy</button></div>
       </div>
-      <div class="p-right">
-        <div class="p-price">Rp5.000</div>
-        <button class="buy-btn" data-name="Dana" data-price="Rp5.000">Buy</button>
-      </div>
-    </div>
 
-    <div class="price-item" data-name="GoPay" data-price="5.000">
-      <div class="p-left">
-        <div class="p-icon">GP</div>
-        <div><div class="p-name">GoPay</div><div class="p-sub">verifikasi nomor</div></div>
+      <div class="price-item" data-name="Gojek" data-price="2.000">
+        <div class="p-left"><div class="p-icon">GJ</div><div><div class="p-name">Gojek</div><div class="p-sub">verifikasi nomor</div></div></div>
+        <div class="p-right"><div class="p-price">Rp2.000</div><button class="buy-btn" data-name="Gojek" data-price="Rp2.000">Buy</button></div>
       </div>
-      <div class="p-right">
-        <div class="p-price">Rp5.000</div>
-        <button class="buy-btn" data-name="GoPay" data-price="Rp5.000">Buy</button>
-      </div>
-    </div>
 
-    <div class="price-item" data-name="KakaoTalk" data-price="4.000">
-      <div class="p-left">
-        <div class="p-icon">KK</div>
-        <div><div class="p-name">KakaoTalk</div><div class="p-sub">verifikasi nomor</div></div>
+      <div class="price-item" data-name="OVO" data-price="5.000">
+        <div class="p-left"><div class="p-icon">OV</div><div><div class="p-name">OVO</div><div class="p-sub">verifikasi nomor</div></div></div>
+        <div class="p-right"><div class="p-price">Rp5.000</div><button class="buy-btn" data-name="OVO" data-price="Rp5.000">Buy</button></div>
       </div>
-      <div class="p-right">
-        <div class="p-price">Rp4.000</div>
-        <button class="buy-btn" data-name="KakaoTalk" data-price="Rp4.000">Buy</button>
-      </div>
-    </div>
 
-    <div class="price-item" data-name="Snapchat" data-price="4.000">
-      <div class="p-left">
-        <div class="p-icon">SC</div>
-        <div><div class="p-name">Snapchat</div><div class="p-sub">verifikasi nomor</div></div>
+      <div class="price-item" data-name="Dana" data-price="5.000">
+        <div class="p-left"><div class="p-icon">DN</div><div><div class="p-name">Dana</div><div class="p-sub">verifikasi nomor</div></div></div>
+        <div class="p-right"><div class="p-price">Rp5.000</div><button class="buy-btn" data-name="Dana" data-price="Rp5.000">Buy</button></div>
       </div>
-      <div class="p-right">
-        <div class="p-price">Rp4.000</div>
-        <button class="buy-btn" data-name="Snapchat" data-price="Rp4.000">Buy</button>
-      </div>
-    </div>
 
-    <div class="price-item" data-name="Spotify" data-price="4.000">
-      <div class="p-left">
-        <div class="p-icon">SF</div>
-        <div><div class="p-name">Spotify</div><div class="p-sub">verifikasi nomor</div></div>
+      <div class="price-item" data-name="GoPay" data-price="5.000">
+        <div class="p-left"><div class="p-icon">GP</div><div><div class="p-name">GoPay</div><div class="p-sub">verifikasi nomor</div></div></div>
+        <div class="p-right"><div class="p-price">Rp5.000</div><button class="buy-btn" data-name="GoPay" data-price="Rp5.000">Buy</button></div>
       </div>
-      <div class="p-right">
-        <div class="p-price">Rp4.000</div>
-        <button class="buy-btn" data-name="Spotify" data-price="Rp4.000">Buy</button>
-      </div>
-    </div>
 
-    <div class="price-item" data-name="Zoom" data-price="3.000">
-      <div class="p-left">
-        <div class="p-icon">ZM</div>
-        <div><div class="p-name">Zoom</div><div class="p-sub">verifikasi nomor</div></div>
+      <div class="price-item" data-name="KakaoTalk" data-price="4.000">
+        <div class="p-left"><div class="p-icon">KK</div><div><div class="p-name">KakaoTalk</div><div class="p-sub">verifikasi nomor</div></div></div>
+        <div class="p-right"><div class="p-price">Rp4.000</div><button class="buy-btn" data-name="KakaoTalk" data-price="Rp4.000">Buy</button></div>
       </div>
-      <div class="p-right">
-        <div class="p-price">Rp3.000</div>
-        <button class="buy-btn" data-name="Zoom" data-price="Rp3.000">Buy</button>
-      </div>
-    </div>
 
-    <div class="price-item" data-name="Facebook" data-price="4.000">
-      <div class="p-left">
-        <div class="p-icon">FB</div>
-        <div><div class="p-name">Facebook</div><div class="p-sub">verifikasi nomor</div></div>
+      <div class="price-item" data-name="Snapchat" data-price="4.000">
+        <div class="p-left"><div class="p-icon">SC</div><div><div class="p-name">Snapchat</div><div class="p-sub">verifikasi nomor</div></div></div>
+        <div class="p-right"><div class="p-price">Rp4.000</div><button class="buy-btn" data-name="Snapchat" data-price="Rp4.000">Buy</button></div>
       </div>
-      <div class="p-right">
-        <div class="p-price">Rp4.000</div>
-        <button class="buy-btn" data-name="Facebook" data-price="Rp4.000">Buy</button>
-      </div>
-    </div>
 
-    <div class="price-item" data-name="Yahoo" data-price="3.000">
-      <div class="p-left">
-        <div class="p-icon">YH</div>
-        <div><div class="p-name">Yahoo</div><div class="p-sub">verifikasi nomor</div></div>
+      <div class="price-item" data-name="Spotify" data-price="4.000">
+        <div class="p-left"><div class="p-icon">SF</div><div><div class="p-name">Spotify</div><div class="p-sub">verifikasi nomor</div></div></div>
+        <div class="p-right"><div class="p-price">Rp4.000</div><button class="buy-btn" data-name="Spotify" data-price="Rp4.000">Buy</button></div>
       </div>
-      <div class="p-right">
-        <div class="p-price">Rp3.000</div>
-        <button class="buy-btn" data-name="Yahoo" data-price="Rp3.000">Buy</button>
-      </div>
-    </div>
 
-    <div class="price-item" data-name="LINE" data-price="4.000">
-      <div class="p-left">
-        <div class="p-icon">LN</div>
-        <div><div class="p-name">LINE</div><div class="p-sub">verifikasi nomor</div></div>
+      <div class="price-item" data-name="Zoom" data-price="3.000">
+        <div class="p-left"><div class="p-icon">ZM</div><div><div class="p-name">Zoom</div><div class="p-sub">verifikasi nomor</div></div></div>
+        <div class="p-right"><div class="p-price">Rp3.000</div><button class="buy-btn" data-name="Zoom" data-price="Rp3.000">Buy</button></div>
       </div>
-      <div class="p-right">
-        <div class="p-price">Rp4.000</div>
-        <button class="buy-btn" data-name="LINE" data-price="Rp4.000">Buy</button>
-      </div>
-    </div>
 
-    <div class="price-item" data-name="Netflix" data-price="4.000">
-      <div class="p-left">
-        <div class="p-icon">NF</div>
-        <div><div class="p-name">Netflix</div><div class="p-sub">verifikasi nomor</div></div>
+      <div class="price-item" data-name="Facebook" data-price="4.000">
+        <div class="p-left"><div class="p-icon">FB</div><div><div class="p-name">Facebook</div><div class="p-sub">verifikasi nomor</div></div></div>
+        <div class="p-right"><div class="p-price">Rp4.000</div><button class="buy-btn" data-name="Facebook" data-price="Rp4.000">Buy</button></div>
       </div>
-      <div class="p-right">
-        <div class="p-price">Rp4.000</div>
-        <button class="buy-btn" data-name="Netflix" data-price="Rp4.000">Buy</button>
+
+      <div class="price-item" data-name="Yahoo" data-price="3.000">
+        <div class="p-left"><div class="p-icon">YH</div><div><div class="p-name">Yahoo</div><div class="p-sub">verifikasi nomor</div></div></div>
+        <div class="p-right"><div class="p-price">Rp3.000</div><button class="buy-btn" data-name="Yahoo" data-price="Rp3.000">Buy</button></div>
       </div>
+
+      <div class="price-item" data-name="LINE" data-price="4.000">
+        <div class="p-left"><div class="p-icon">LN</div><div><div class="p-name">LINE</div><div class="p-sub">verifikasi nomor</div></div></div>
+        <div class="p-right"><div class="p-price">Rp4.000</div><button class="buy-btn" data-name="LINE" data-price="Rp4.000">Buy</button></div>
+      </div>
+
+      <div class="price-item" data-name="Netflix" data-price="4.000">
+        <div class="p-left"><div class="p-icon">NF</div><div><div class="p-name">Netflix</div><div class="p-sub">verifikasi nomor</div></div></div>
+        <div class="p-right"><div class="p-price">Rp4.000</div><button class="buy-btn" data-name="Netflix" data-price="Rp4.000">Buy</button></div>
+      </div>
+
     </div>
   </div>
 
@@ -823,7 +556,6 @@
 
 <div class="toast" id="toast"></div>
 
-<!-- ===== Popup Promo Saluran ===== -->
 <div class="modal-overlay" id="promoOverlay">
   <div class="modal-box">
     <div class="modal-close" id="promoClose">✕</div>
@@ -836,31 +568,28 @@
   </div>
 </div>
 
-<!-- ===== Modal Form Buy ===== -->
 <div class="modal-overlay" id="buyOverlay">
   <div class="modal-box">
     <div class="modal-close" id="buyClose">✕</div>
     <h2>Form Order</h2>
     <p class="desc">Isi data di bawah, nanti otomatis kekirim jadi pesan WhatsApp ke penjual.</p>
-    <form id="buyForm">
-      <div class="form-group">
-        <label for="buyProduct">Produk</label>
-        <input type="text" id="buyProduct" readonly>
-      </div>
-      <div class="form-group">
-        <label for="buyPrice">Harga</label>
-        <input type="text" id="buyPrice" readonly>
-      </div>
-      <div class="form-group">
-        <label for="buyName">Nama</label>
-        <input type="text" id="buyName" placeholder="Nama kamu" required>
-      </div>
-      <div class="form-group">
-        <label for="buyNote">Catatan (opsional)</label>
-        <textarea id="buyNote" placeholder="Tulis catatan tambahan, misal jumlah, request khusus, dll."></textarea>
-      </div>
-      <button type="submit" class="modal-btn">📩 Kirim ke WhatsApp</button>
-    </form>
+    <div class="form-group">
+      <label>Produk</label>
+      <input type="text" id="buyProduct" readonly>
+    </div>
+    <div class="form-group">
+      <label>Harga</label>
+      <input type="text" id="buyPrice" readonly>
+    </div>
+    <div class="form-group">
+      <label>Nama</label>
+      <input type="text" id="buyName" placeholder="Nama kamu">
+    </div>
+    <div class="form-group">
+      <label>Catatan (opsional)</label>
+      <textarea id="buyNote" placeholder="Tulis catatan tambahan, misal jumlah, request khusus, dll."></textarea>
+    </div>
+    <button class="modal-btn" id="submitBuy">📩 Kirim ke WhatsApp</button>
   </div>
 </div>
 
@@ -904,34 +633,27 @@
     setTimeout(() => { creditEl.classList.add('show'); }, 900);
   })();
 
-  // ---- Web Audio synthesized click sounds (no external files) ----
+  // ---- Audio ----
   let audioCtx;
   function ctx(){
     if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     return audioCtx;
   }
-
-  function playClick(freq = 620, duration = 0.09, type = 'sine', vol = 0.05){
-    const c = ctx();
-    const osc = c.createOscillator();
-    const gain = c.createGain();
-    osc.type = type;
-    osc.frequency.setValueAtTime(freq, c.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(freq * 0.5, c.currentTime + duration);
-    gain.gain.setValueAtTime(vol, c.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, c.currentTime + duration);
+  function playClick(){
+    const c = ctx(), osc = c.createOscillator(), gain = c.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(620, c.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(310, c.currentTime + 0.09);
+    gain.gain.setValueAtTime(0.05, c.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, c.currentTime + 0.09);
     osc.connect(gain).connect(c.destination);
-    osc.start();
-    osc.stop(c.currentTime + duration);
+    osc.start(); osc.stop(c.currentTime + 0.09);
   }
-
   function playConfirm(){
     const c = ctx();
     [660, 880].forEach((f, i) => {
-      const osc = c.createOscillator();
-      const gain = c.createGain();
-      osc.type = 'triangle';
-      osc.frequency.value = f;
+      const osc = c.createOscillator(), gain = c.createGain();
+      osc.type = 'triangle'; osc.frequency.value = f;
       gain.gain.setValueAtTime(0.06, c.currentTime + i * 0.07);
       gain.gain.exponentialRampToValueAtTime(0.001, c.currentTime + i * 0.07 + 0.15);
       osc.connect(gain).connect(c.destination);
@@ -939,58 +661,78 @@
       osc.stop(c.currentTime + i * 0.07 + 0.16);
     });
   }
+  function playTabSwitch(){
+    const c = ctx(), osc = c.createOscillator(), gain = c.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(480, c.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(720, c.currentTime + 0.1);
+    gain.gain.setValueAtTime(0.04, c.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, c.currentTime + 0.12);
+    osc.connect(gain).connect(c.destination);
+    osc.start(); osc.stop(c.currentTime + 0.13);
+  }
 
   const toast = document.getElementById('toast');
   function showToast(msg){
-    toast.textContent = msg;
-    toast.classList.add('show');
+    toast.textContent = msg; toast.classList.add('show');
     clearTimeout(showToast._t);
     showToast._t = setTimeout(() => toast.classList.remove('show'), 1800);
   }
 
-  const WA_NUMBER = '6285142292088'; // nomor WA tujuan
+  const WA_NUMBER = '6285142292088';
   const WA_CHANNEL_LINK = 'https://whatsapp.com/channel/0029Vb98cxe6xCSQ7SyfDn1C';
 
   function buildWaLink(name, price){
     const msg = `Halo!! Saya Ingin Order Nomor Fresh! Layanan : ${name} Harga : Rp${price} Terimakasih`;
     return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
   }
-
   function buildOrderWaLink({ nama, produk, harga, note }){
     let msg = `Halo!! Saya Ingin Order Nomor Fresh!\n\nNama : ${nama}\nProduk : ${produk}\nHarga : ${harga || '-'}`;
-    if(note && note.trim() !== ''){
-      msg += `\nCatatan : ${note.trim()}`;
-    }
+    if(note && note.trim() !== '') msg += `\nCatatan : ${note.trim()}`;
     msg += `\n\nTerimakasih`;
     return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
   }
 
-  // ---- join saluran links ----
   document.getElementById('joinChannelLink').href = WA_CHANNEL_LINK;
   document.getElementById('promoJoinBtn').href = WA_CHANNEL_LINK;
 
-  // ---- popup promo saluran (muncul otomatis sekali per sesi) ----
-  const promoOverlay = document.getElementById('promoOverlay');
-  const promoClose = document.getElementById('promoClose');
-  const promoDismiss = document.getElementById('promoDismiss');
-  const promoJoinBtn = document.getElementById('promoJoinBtn');
+  // ---- Category Tabs ----
+  const tabs = document.querySelectorAll('.cat-tab');
+  let lastSelected = null;
 
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+      if(tab.classList.contains('active')) return;
+
+      if(target === 'suntik'){
+        window.location.href = 'suntik-sosmed.html';
+        return;
+      }
+      if(target === 'apk'){
+        window.location.href = 'apk-premium.html';
+        return;
+      }
+
+      playTabSwitch();
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      lastSelected = null;
+    });
+  });
+
+  // ---- Promo Popup ----
+  const promoOverlay = document.getElementById('promoOverlay');
   function openPromo(){ promoOverlay.classList.add('show'); }
   function closePromo(){ promoOverlay.classList.remove('show'); }
-
-  setTimeout(() => {
-    openPromo();
-  }, 2400);
-
-  promoClose.addEventListener('click', closePromo);
-  promoDismiss.addEventListener('click', closePromo);
-  promoJoinBtn.addEventListener('click', () => { playConfirm(); closePromo(); });
+  setTimeout(() => { openPromo(); }, 2400);
+  document.getElementById('promoClose').addEventListener('click', closePromo);
+  document.getElementById('promoDismiss').addEventListener('click', closePromo);
+  document.getElementById('promoJoinBtn').addEventListener('click', () => { playConfirm(); closePromo(); });
   promoOverlay.addEventListener('click', (e) => { if(e.target === promoOverlay) closePromo(); });
 
-  // ---- modal form Buy (per item) ----
+  // ---- Buy Modal ----
   const buyOverlay = document.getElementById('buyOverlay');
-  const buyClose = document.getElementById('buyClose');
-  const buyForm = document.getElementById('buyForm');
   const buyProductInput = document.getElementById('buyProduct');
   const buyPriceInput = document.getElementById('buyPrice');
 
@@ -1004,35 +746,26 @@
 
   document.querySelectorAll('.buy-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      e.stopPropagation(); // biar ga ikut trigger klik card di belakangnya
+      e.stopPropagation();
       openBuy(btn.dataset.name, btn.dataset.price);
     });
   });
 
-  buyClose.addEventListener('click', closeBuy);
+  document.getElementById('buyClose').addEventListener('click', closeBuy);
   buyOverlay.addEventListener('click', (e) => { if(e.target === buyOverlay) closeBuy(); });
 
-  buyForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    playConfirm();
+  document.getElementById('submitBuy').addEventListener('click', () => {
     const nama = document.getElementById('buyName').value.trim();
     const produk = buyProductInput.value;
     const harga = buyPriceInput.value;
     const note = document.getElementById('buyNote').value;
-
-    if(!nama){
-      showToast('> isi nama dulu ya');
-      return;
-    }
-
+    if(!nama){ showToast('> isi nama dulu ya'); return; }
+    playConfirm();
     showToast('> order dibuat, membuka WhatsApp...');
-    // langsung redirect di tab yang sama (tanpa delay) biar tidak diblokir popup blocker HP/browser
     window.location.href = buildOrderWaLink({ nama, produk, harga, note });
   });
 
-  // ---- klik kartu produk (highlight + tombol chat WA cepat) ----
-  let lastSelected = null;
-
+  // ---- Card click highlight ----
   document.querySelectorAll('.price-item').forEach(item => {
     item.addEventListener('click', () => {
       playClick();
@@ -1044,10 +777,7 @@
 
   document.getElementById('pmBtn').addEventListener('click', () => {
     playConfirm();
-    if(!lastSelected){
-      showToast('> pilih salah satu layanan dulu di atas ya');
-      return;
-    }
+    if(!lastSelected){ showToast('> pilih salah satu layanan dulu di atas ya'); return; }
     showToast('> menghubungkan ke WhatsApp...');
     window.location.href = buildWaLink(lastSelected.name, lastSelected.price);
   });
